@@ -1,16 +1,76 @@
 <!DOCTYPE html>
 <html>
+  <html lang="ja">
   <head>
-    <title>Camp</title>
+    <meta charset="UTF-8" />
+    <script src="https://kit.fontawesome.com/ab6d9d0a52.js" crossorigin="anonymous"></script>
+    <title>féerie</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <!--%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>-->
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+    <body>
+    <header>
+     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+       <div class="container ">
+         <a class="navbar-brand" href="/"><span>féerie</span></a>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+           <ul class="navbar-nav ml-auto">
+            <% if user_signed_in? %>
+             <li>
+                <%= link_to  user_path(current_user.id), class: "text-white navbar-brand" do %>
+                 <i class="fas fa-home"></i>Home
+                <% end %>
+             </li>
+             <li>
+                <%= link_to users_path, class: "text-white navbar-brand" do %>
+                 <i class="fas fa-users"></i>Users
+                <% end %>
+             </li>
+             <li>
+                <%= link_to books_path, class: "text-white navbar-brand" do %>
+                 <i class="fas fa-book-open"></i>Books
+                <% end %>
+             </li>
+             <li>
+                <%= link_to destroy_user_session_path, method: :delete, class: "text-white navbar-brand" do %>
+                 <i class=" fas fa-sign-out-alt"></i>Log out
+                <% end %>
+             </li>
+            <% else %>
+             <li>
+                <%= link_to root_path, class: "text-white navbar-brand" do  %>
+                 <i class="fas fa-home"></i>Home
+             </li>
+                <% end %>
+             <li>
+               <%= link_to about_path,  class: "text-white navbar-brand" do %>  
+                 <i class="fas fa-link"></i>About
+             </li>
+                <% end %>
+             <li>
+                <%= link_to new_user_registration_path, class: "text-white navbar-brand" do %>
+                 <i class="fas fa-user-plus"></i>Sign up
+             </li>
+                <% end %>
+             <li>
+                 <%= link_to new_user_session_path, class: "text-white navbar-brand" do %>
+                  <i class="fas fa-sign-in-alt"></i>Log in
+             </li>
+                <% end %>
+            <% end %>
+            </ul>
+          </div>
+       </div>
+     </nav> 
+    </header>
+
     <%= yield %>
   </body>
 </html>

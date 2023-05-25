@@ -6,10 +6,19 @@ Rails.application.routes.draw do
 
 #---------------------------------------------------------------------------
  
-  devise_for :users,controllers: {
+devise_for :users,controllers: {
   registrations: "public/registrations",
   sessions: 'public/sessions'
 }
 #skip: [:passwords],   使用検討中
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+scope module: :public do 
+   get "/customers/my_page" => "customers#show"
+      get "/customers/information/edit"  => "customers#edit"
+      patch "/customers/information" => "customers#update"
+      get "/customers/unsubscribe" => "customers#unsubscribe", as: "unsubscribe"
+      patch  "/customers/withdraw" => "customers#withdraw", as: "withdraw"
+  resources :homes
+   root to: 'homes#top'
+   get "/about" => "homes#about", as: "about"
+end
 end
