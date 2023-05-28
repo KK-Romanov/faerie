@@ -1,29 +1,81 @@
-<h2>Sign up</h2>
+ <hr class="my-2" />
+      <!--Section: Content-->
+      <section class="mb-5">
+        <h2 class="mb-5 text-center">
+          <strong>新規登録</strong></h2>
+
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-6">
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "public/shared/error_messages", resource: resource %>
-
-  <div class="field">
+ 
+  <!--<div class="form-outline mb-4">-->
+  <div class="field mb-4">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", size: 79 %>
   </div>
+
 
   <div class="field">
     <%= f.label :password %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
+    <%= f.password_field :password, autocomplete: "new-password", size: 79 %>
   </div>
+
 
   <div class="field">
     <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", size: 79 %>
   </div>
 
+  <br>
+    <!-- Submit button -->
   <div class="actions">
-    <%= f.submit "Sign up" %>
+      <%= f.submit "Sign up", class: "btn btn-primary btn-block mb-4" %>
   </div>
 <% end %>
 
 <%= render "public/shared/links" %>
+
+
+ <hr class="my-5" />
+
+               
+
+              <!-- Email input -->
+              <!--<div class="form-outline mb-4">-->
+              <!--  <input type="email" id="form3Example3" class="form-control" />-->
+              <!--  <label class="form-label" for="form3Example3">Email address</label>-->
+              <!--</div>-->
+
+              <!-- Password input -->
+              <!--<div class="form-outline mb-4">-->
+              <!--  <input type="password" id="form3Example4" class="form-control" />-->
+              <!--  <label class="form-label" for="form3Example4">Password</label>-->
+              <!--</div>-->
+
+              <!-- Checkbox -->
+              <!--<div class="form-check d-flex justify-content-center mb-4">-->
+              <!--  <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" checked />-->
+              <!--  <label class="form-check-label" for="form2Example3">-->
+              <!--    Subscribe to our newsletter-->
+              <!--  </label>-->
+              <!--</div>-->
+
+              <!-- Submit button -->
+    <!--          <button type="submit" class="btn btn-primary btn-block mb-4">-->
+    <!--            Sign up-->
+    <!--          </button>-->
+
+              <!-- Register buttons -->
+              
+    <!--          </div>-->
+    <!--        </form>-->
+    <!--      </div>-->
+    <!--    </div>-->
+    <!--  </section>-->
+      <!--Section: Content-->
+    <!--</div>-->

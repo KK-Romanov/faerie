@@ -15,62 +15,92 @@
   </head>
 
   <body>
-    <body>
     <header>
-     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-       <div class="container ">
-         <a class="navbar-brand" href="/"><span>féerie</span></a>
+     <nav class="navbar navbar-expand-lg navbar-dark bg-dark d-none d-lg-block">
+          <nav class="navbar navbar-expand-lg navbar-dark d-none d-lg-block" style="z-index: 2000;">
+       <div class="container-fluid">
+         <a class="navbar-brand" href="/"><h4><strong>féerie</strong></h4></a>
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
            <ul class="navbar-nav ml-auto">
-            <% if user_signed_in? %>
-             <li>
-                <%= link_to  user_path(current_user.id), class: "text-white navbar-brand" do %>
-                 <i class="fas fa-home"></i>Home
+            
+          <% if user_signed_in? %>
+              <li>
+                  <a class="text-white navbar-brand">
+                  ようこそ、<%= current_user.name %>さん！
+                  </a>
+                <%= link_to users_my_page_path, class: "text-white navbar-brand" do %>
+                 <i class="fas fa-book-open"></i>マイページ
                 <% end %>
-             </li>
-             <li>
-                <%= link_to users_path, class: "text-white navbar-brand" do %>
-                 <i class="fas fa-users"></i>Users
-                <% end %>
-             </li>
-             <li>
-                <%= link_to books_path, class: "text-white navbar-brand" do %>
-                 <i class="fas fa-book-open"></i>Books
-                <% end %>
-             </li>
-             <li>
+              </li>
+              <li>
+               <!-- <#%= link_to lot_path, class: "text-white navbar-brand" do  %>-->
+               <!--   <i class="fal fa-birthday-cake fa-sm" style="color: #111212;"></i>-->
+               <!--  商品一覧-->
+               <!--</li>-->
+               <!--  <#% end %>-->
+               <!--<li>-->
+               <!-- <#%= link_to cart_items_path, class: "text-white navbar-brand" do %>-->
+               <!--  <i class="fas fa-users"></i>カート-->
+               <!-- <#% end %>-->
+               <!--</li>-->
+               <li>
                 <%= link_to destroy_user_session_path, method: :delete, class: "text-white navbar-brand" do %>
-                 <i class=" fas fa-sign-out-alt"></i>Log out
+                 <i class=" fas fa-sign-out-alt"></i>ログアウト
                 <% end %>
-             </li>
+               </li>
+             
+             <% elsif admin_signed_in? %>
+               <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                 <ul class="navbar-nav ml-auto">
+            　     <li>
+                   <!--<#%= link_to admin_items_path, class: "text-white navbar-brand" do  %>-->
+                   <!-- <i class="fal fa-birthday-cake fa-sm" style="color: #111212;"></i>商品一覧-->
+                   <!-- <#% end %>-->
+                    <%= link_to admin_users_path, class: "text-white navbar-brand" do %>会員一覧
+                      <%end %>
+                      <!--  <#%= link_to  top_path, class: "text-white navbar-brand" do %>注文履歴一覧-->
+                      <!--<#%end %>-->
+                      <!--  <#%= link_to  admin_genres_path, class: "text-white navbar-brand" do %>ジャンル一覧-->
+                      <!--<#%end %>-->
+                     <%= link_to destroy_admin_session_path, method: :delete, class: "text-white navbar-brand" do %>
+                      <i class=" fas fa-sign-out-alt"></i>ログアウト
+            　         <% end %>
+                   </li>
+                  </ul> 
+                </div>
+               </nav>
+                
             <% else %>
              <li>
-                <%= link_to root_path, class: "text-white navbar-brand" do  %>
-                 <i class="fas fa-home"></i>Home
-             </li>
-                <% end %>
-             <li>
                <%= link_to about_path,  class: "text-white navbar-brand" do %>  
-                 <i class="fas fa-link"></i>About
+                 <i class="fas fa-link"></i>How to use
              </li>
                 <% end %>
-             <li>
-                <%= link_to new_user_registration_path, class: "text-white navbar-brand" do %>
-                 <i class="fas fa-user-plus"></i>Sign up
+             <!--<li>-->
+                <!--#%= link_to lot_path, class: "text-white navbar-brand" do  %>-->
+             <!--    <i class="fal fa-birthday-cake fa-sm" style="color: #111212;"></i>-->
+             <!--    商品一覧-->
              </li>
+                <!--<#% end %>-->
+             <!--<li>-->
+             <!--   <#%= link_to new_user_registration_path, class: "text-white navbar-brand" do %>-->
+             <!--    <i class="fas fa-user-plus"></i>新規登録-->
+             <!--</li>-->
+             <!--   <#% end %>-->
+             <!--<li>-->
+             <!--    <#%= link_to  new_user_session_path, class: "text-white navbar-brand" do %>-->
+             <!--     <i class="fas fa-sign-in-alt"></i>ログイン-->
+             <!--</li>-->
+             <!--   <#% end %>-->
                 <% end %>
-             <li>
-                 <%= link_to new_user_session_path, class: "text-white navbar-brand" do %>
-                  <i class="fas fa-sign-in-alt"></i>Log in
-             </li>
-                <% end %>
-            <% end %>
+               
             </ul>
           </div>
        </div>
      </nav> 
-    </header>
-
+   </header>
+    
     <%= yield %>
   </body>
 </html>
