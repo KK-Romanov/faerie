@@ -2,6 +2,7 @@ class Recipe < ApplicationRecord
   belongs_to :user
 #   材料関連
   has_many :ingredients, dependent: :destroy
+  accepts_nested_attributes_for :ingredients
 #   作り方  
   has_many :steps, dependent: :destroy
 #   コメント
@@ -11,4 +12,6 @@ class Recipe < ApplicationRecord
   has_many :recipe_tag_relations, dependent: :delete_all, validate: false
 #   いいね
   has_many :favorites, dependent: :destroy
+  
+  has_one_attached :image
 end

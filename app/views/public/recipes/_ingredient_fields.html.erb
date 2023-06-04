@@ -1,0 +1,19 @@
+<!--<div class="nested-fields">-->
+<!--    <#%= f.collection_select(:ingredient_id, {}, :id, :name, {}) %>-->
+<!--    <#%= f.number_field :quantity %>-->
+<!--    <div>個</div>-->
+<!--    <#%= link_to_remove_association "削除", f %>-->
+<!--</div>-->
+
+<div class="nested-fields">
+  <%= f.hidden_field :_destroy %>
+  <div class="ingredient__inputBx">
+    <%= f.text_field :content, placeholder: "材料", class:"ingredient__content",size: 25 %>
+    
+    <%= f.text_field :quantity, placeholder: "分量", class:"ingredient__quantity",size: 25 %>
+    <%= link_to '#' , class: "remove-field-btn" do %>
+    <%= link_to_remove_association "削除", f %>
+      <!--<#%= image_tag 'delete', class: "js-remove_fields" %>-->
+    <% end %>
+  </div>
+</div>

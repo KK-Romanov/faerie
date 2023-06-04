@@ -29,20 +29,24 @@
                   ようこそ、<%= current_user.name %>さん！
                   </a>
                 <%= link_to users_my_page_path, class: "text-white navbar-brand" do %>
-                 <i class="fas fa-book-open"></i>マイページ
+                 <i class="fa-solid fa-street-view"></i>マイページ
                 <% end %>
               </li>
               <li>
-               <!-- <#%= link_to lot_path, class: "text-white navbar-brand" do  %>-->
-               <!--   <i class="fal fa-birthday-cake fa-sm" style="color: #111212;"></i>-->
-               <!--  商品一覧-->
-               <!--</li>-->
-               <!--  <#% end %>-->
-               <!--<li>-->
-               <!-- <#%= link_to cart_items_path, class: "text-white navbar-brand" do %>-->
-               <!--  <i class="fas fa-users"></i>カート-->
-               <!-- <#% end %>-->
-               <!--</li>-->
+                <%= link_to new_recipe_path , class: "text-white navbar-brand" do %>
+                 <i class="fa-solid fa-utensils"></i>レシピ投稿
+                <% end %>
+               </li>
+                <li>
+                  <%= link_to recipes_path, class: "text-white navbar-brand" do %>
+                  <i class="fa-solid fa-book-tanakh fa-flip-horizontal"></i>レシピ一覧
+                  <% end %>
+                </li>
+                <!--<li>-->
+                <!--<"%= link_to users_path, class: "text-white navbar-brand" do  %>-->
+                <!-- <i class="fa-solid fa-user-secret"></i>ユーザー一覧-->
+                <!-- <"% end %>-->
+                <!--</li>-->
                <li>
                 <%= link_to destroy_user_session_path, method: :delete, class: "text-white navbar-brand" do %>
                  <i class=" fas fa-sign-out-alt"></i>ログアウト
@@ -74,9 +78,13 @@
             <% else %>
              <li>
                <%= link_to about_path,  class: "text-white navbar-brand" do %>  
-                 <i class="fas fa-link"></i>How to use
+                 <i class="fas fa-link"></i>What about me
              </li>
                 <% end %>
+                <!--<li><#%= link_to users_guest_sign_in_path, method: :post ,class: "text-white navbar-brand" do  %>-->
+                <!-- <i class="far fa-question-circle"></i>ゲストログイン（閲覧用)-->
+                <!--</li>-->
+                <!--<#% end %>-->
              <!--<li>-->
                 <!--#%= link_to lot_path, class: "text-white navbar-brand" do  %>-->
              <!--    <i class="fal fa-birthday-cake fa-sm" style="color: #111212;"></i>-->

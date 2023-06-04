@@ -1,0 +1,23 @@
+<div class="nested-fields">
+  <%= f.hidden_field :_destroy %>
+  <div class="step__inputBx">
+    <p class="step__number"></p>
+    <%= f.text_area :direction, class:"step__input"%>
+    <div class="step__form-img">
+      <!--<#%= image_tag f.object.image.url %>-->
+    </div>
+    <%= link_to '#' , class: "remove-field-btn" do %>
+      <!--<#%= image_tag 'delete', class: "js-remove_fields" %>-->
+    <% end %>
+    <div class="step__file-input">
+      <% if current_page?(controller:"recipes", action: "new") %>
+        <span class="step__file-label">手順の画像：</span><%= f.file_field :image,
+        accept: "image/jpeg,image/gif,image/png", id: "step-image" %>
+      <% else %>
+        <span class="step__file-label">変更後の画像：</span><%= f.file_field :image,
+        accept: "image/jpeg,image/gif,image/png", id: "step-image" %>
+      <%= link_to_remove_association "削除", f %>
+      <% end %>
+    </div>
+  </div>
+</div>

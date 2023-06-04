@@ -1,0 +1,70 @@
+<main>
+  <%= form_with(model: @recipe, local: true) do |f| %>
+  <%= f.hidden_field :image_cache %>
+  <section class="description">
+    <div class="description__inner">
+      <div class="description__img-field">
+        <div class="cooking-title">写真</div>
+          <label class="img-file">
+            <!--<#%= image_tag 'add_a_photo', class:"add-photo-btn"%>-->
+            <!--<#%= f.file_field :image, accept: "image/jpeg,image/gif,image/png", class: "image" %>-->
+          </label>
+          <div class="preview description__preview"></div>
+            <div class="description__img set-img">
+              <!--<#%= image_tag recipe.image.url %>-->
+            </div>
+            <% unless current_page?(controller:"recipes", action: "new") %>
+              <div class="description__remove-img-label">
+                <!--<#%= f.check_box :remove_image %>-->
+                <!--<#%= f.label :remove_image %>-->
+              </div>
+            <% end %>
+      </div>
+      <div class="description__texts">
+        <div class="cooking-title"><h4>レシピについて</h4></div>
+        <div class="description__inputBx">
+          <br>
+          <%= f.text_field :title, placeholder: "タイトル(50文字以内)" ,size: 35%>
+          <br>
+          <p></p>
+          <%= f.text_area :description, placeholder: "サブタイトル(140字以内)",size: 35 %>
+        </div>
+        <div class="cooking-title"><h4>材料</h4></div>
+        <section class="ingredient">
+          <%= f.fields_for :ingredients do |ingredient| %>
+            <%= render "ingredient_fields", f: ingredient %>
+          <% end %>
+          <%= link_to_add_association "材料の追加", f, :ingredients %>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <div class="cooking-title"><h6>関連タグ</h6></div>
+  <section class="tag">
+    <%# 存在するタグの数だけチェックボックスを追加するメソッドを使用 %>
+    <div class="tag__container">
+      <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+        <%= tag.label class: 'tag__item' do %>
+          <%= tag.check_box class: 'tag__checkbox' %>
+          <%= tag.text %>
+        <% end %>
+      <% end %>
+    </div>
+  </section>
+
+  <div class="cooking-title"><h4>作り方<h4></div>
+  <section class="step">
+    <div class="field">
+      <%= f.fields_for :steps do |step| %>
+        <%= render "step_fields", f: step %>
+      <% end %>
+      <%= link_to_add_association "作り方の追加", f, :steps %>
+    </div>
+  </section>
+
+  <div class="submit"><%= f.button "送信する" , class:"btn slide-bg"%></div>
+  <% end %>
+</main>
+
+

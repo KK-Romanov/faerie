@@ -1,2 +1,27 @@
-<h1>Public::Users#show</h1>
-<p>Find me in app/views/public/users/show.html.erb</p>
+<div class = "container mt-5">
+     <h1>マイページ</h1>
+  <div class = "row">
+    
+     
+     
+      <b>登録情報</b>
+     <span>
+      <%= link_to "編集する", users_information_edit_path, class: "btn btn-success" %>
+     </span>
+     
+     <table class="table table-hover">
+     
+            <tr>
+              <th><b>氏名</b></th>
+                <td><%= current_user.name %></td>
+            </tr>
+              <th><b>メールアドレス</b></th>
+             <td><%= current_user.email %></td>
+            </tr>
+       
+     </table>
+       </div>
+         
+       
+       <!--%= form_with model: @cart_item, url: cart_items_path, method: :post do |f| %>-->
+     

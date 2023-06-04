@@ -1,0 +1,14 @@
+<div class="cooking-title">
+  <% if @search.present? %>
+    「<%= @search %>」の検索結果
+  <% else %>
+    検索結果
+  <% end %>
+</div>
+<%= render 'shared/recipe_search' %>
+<%= render 'shared/recipe_list' %>
+
+<%= paginate @recipes %>
+
+<div class="cancel"><%= link_to 'レシピ一覧に戻る',
+recipes_path, class:"btn cancel-btn"%></div>

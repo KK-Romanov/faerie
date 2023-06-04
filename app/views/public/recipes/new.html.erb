@@ -1,2 +1,6 @@
-<h1>Public::Recipes#new</h1>
-<p>Find me in app/views/public/recipes/new.html.erb</p>
+<div class = "container mt-5">
+<% @title = "レシピ投稿" %>
+<h2>レシピ投稿</h2>
+
+<%= render 'form', recipe: @recipe %>
+

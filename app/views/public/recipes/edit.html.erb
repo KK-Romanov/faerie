@@ -1,2 +1,6 @@
-<h1>Public::Recipes#edit</h1>
-<p>Find me in app/views/public/recipes/edit.html.erb</p>
+<%= render 'form', recipe: @recipe %>
+
+<div class="cancel"><%= link_to '編集をやめる', @recipe, class:"btn cancel-btn"%></div>
+
+<div class="cancel"><%= link_to 'レシピを削除', @recipe, method: :delete,
+data: { confirm: "削除してよろしいですか？" }, class:"btn cancel-btn"%></div>

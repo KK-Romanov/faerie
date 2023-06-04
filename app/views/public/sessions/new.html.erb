@@ -30,18 +30,18 @@
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-xl-5 col-md-8">
-              <form class="bg-white  rounded-5 shadow-5-strong p-5">
+              <div class="bg-white  rounded-5 shadow-5-strong p-5">
                 <div class = "text-center">
                  <h4><strong>会員ログイン</strong></h4>
                   </div>
-                  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+                  <%= form_with model: resource, url: user_session_path do |f| %>
                     <div class="field">
-                      <%= f.label :email %><br />
+                      <%= f.label :メールアドレス %><br />
                       <%= f.email_field :email, autofocus: true, autocomplete: "email", size: 34 %>
                     </div>
                     <br>
                     <div class="field">
-                      <%= f.label :password %><br />
+                      <%= f.label :パスワード %><br />
                       <%= f.password_field :password, autocomplete: "current-password", size: 34 %>
                     </div>
                     <br>
@@ -53,13 +53,15 @@
                     <% end %>
                   
                     <div class="actions">
-                      <%= f.submit "Log in", class: "btn btn-primary btn-block" %>
+                      <%= f.submit "ログイン", class: "btn btn-primary btn-block" %>
                     </div>
                   <% end %>
-                  
-                  <%= render "public/shared/links" %>
+                  <br>
+                  会員登録済みでない方<br>
+                  <%= link_to "こちら", new_user_registration_path %>から新規登録を行ってください。
+
                 <!-- Email input -->
-              </form>
+              </div>
             </div>
           </div>
         </div>
