@@ -1,1 +1,78 @@
-recipe show page
+<main>
+  <section class="description">
+    <div class="description__inner">
+      <div class="description__img-field">
+        <div class="description__img">
+          <%= image_tag @recipe.image.url %>
+        </div>
+      </div>
+      <div class="description__texts">
+        <div class="description__title">
+          <%= @recipe.title %>
+          <div class="description__detail">
+            <%= @recipe.description %>
+          </div>
+        </div>
+        <div id="recipe_<%= @recipe.id %>">
+          <%= render partial: "favorite", locals: { recipe: @recipe } %>
+        </div>
+
+        <div class="recipeuser">
+          <div class="cooking-title">ユーザープロフィール</div>
+          <div class="recipeuser__inner">
+            <div class="recipeuser__img">
+              <%= link_to image_tag(@recipe.user.avatar.url), user_path(id: @recipe.user_id) %>
+            </div>
+            <%= link_to @recipe.user.name, user_path(id: @recipe.user_id), class:"recipeuser__name" %>
+            <% if user_signed_in? && @recipe.user == current_user %>
+              <%= link_to 'レシピ編集', edit_recipe_path, class:"btn recipe-edit-btn" %>
+            <% end %>
+          </div>
+        </div>
+
+        <section class="ingredient">
+          <div class="cooking-title">材料</div>
+          <% @recipe.ingredients.each do |ingredient| %>
+            <div class="ingredient__ul">
+              <div><%= ingredient.content %></div>
+              <div><%= ingredient.quantity %></div>
+            </div>
+          <% end %>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <section class="tag">
+    <div class="cooking-title">関連タグ</div>
+    <div class="tag__container">
+      <% if @recipe.tags.empty? %>
+        <p class="tag__none">関連タグが設定されていません</p>
+      <% else %>
+        <% @recipe.tags.each do |tag| %>
+          <%= render_with_tags(tag.name, tag.id) %>
+        <% end %>
+      <% end %>
+    </div>
+  </section>
+
+  <section class="step">
+    <div class="cooking-title">作り方</div>
+    <% @recipe.steps.each do |step| %>
+      <div class="step__item">
+        <div class="step__inner">
+          <div class="step__content">
+            <p class="step__number"></p>
+            <p class="step__description"><%= step.direction %></p>
+          </div>
+          <% if step.image? %>
+            <div class="step__img">
+              <%= image_tag step.image.url %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </section>
+  <%= render 'shared/recipe_comment', comments: @comments %>
+</main>

@@ -1,5 +1,14 @@
 
 <section class="list">
   <div class="cooking-title">レシピ一覧</div>
+ <% @recipes.each do |recipe|%>
+ <%= recipe.title %>
+ <br>
+ <%= recipe.description %>
+  <%#= recipe.ingredients  %>
+  <%#= recipe.steps   %>
+ 
+ <% end %>
+
   <%= paginate @recipes %>
 </section>

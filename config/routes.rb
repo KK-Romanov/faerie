@@ -43,7 +43,7 @@ scope module: :public do
     # get 'recipes/tweet', to: "homes#tweet_index"
   resources :favorites, only: [:destroy, :create]  
   resources :comment, only: [:destroy, :create]  
-  resources :recipes, only: [:new, :index, :edit, :update, :destroy]
+  resources :recipes, only: [:new, :index, :edit, :update, :destroy, :create]
     # get 'recipes/tag_search'
      get 'recipes/tag/:name', to: "recipes#tag_search"
      get 'recipes/search', to: 'recipes#search'

@@ -13,10 +13,11 @@
       <% if current_page?(controller:"recipes", action: "new") %>
         <span class="step__file-label">手順の画像：</span><%= f.file_field :image,
         accept: "image/jpeg,image/gif,image/png", id: "step-image" %>
+      <%= link_to_remove_association "削除", f %>
       <% else %>
         <span class="step__file-label">変更後の画像：</span><%= f.file_field :image,
         accept: "image/jpeg,image/gif,image/png", id: "step-image" %>
-      <%= link_to_remove_association "削除", f %>
+        <%= link_to_remove_association "削除", f %>
       <% end %>
     </div>
   </div>

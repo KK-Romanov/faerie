@@ -58,9 +58,6 @@
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                  <ul class="navbar-nav ml-auto">
             　     <li>
-                   <!--<#%= link_to admin_items_path, class: "text-white navbar-brand" do  %>-->
-                   <!-- <i class="fal fa-birthday-cake fa-sm" style="color: #111212;"></i>商品一覧-->
-                   <!-- <#% end %>-->
                     <%= link_to admin_users_path, class: "text-white navbar-brand" do %>会員一覧
                       <%end %>
                       <!--  <#%= link_to  top_path, class: "text-white navbar-brand" do %>注文履歴一覧-->
@@ -86,11 +83,11 @@
                 <!--</li>-->
                 <!--<#% end %>-->
              <!--<li>-->
-                <!--#%= link_to lot_path, class: "text-white navbar-brand" do  %>-->
-             <!--    <i class="fal fa-birthday-cake fa-sm" style="color: #111212;"></i>-->
-             <!--    商品一覧-->
-             </li>
-                <!--<#% end %>-->
+              <li>
+                <%= link_to recipes_path, class: "text-white navbar-brand" do %>
+                <i class="fa-solid fa-book-tanakh fa-flip-horizontal"></i>レシピ一覧
+                <% end %>
+              </li>
              <!--<li>-->
              <!--   <#%= link_to new_user_registration_path, class: "text-white navbar-brand" do %>-->
              <!--    <i class="fas fa-user-plus"></i>新規登録-->
