@@ -7,17 +7,16 @@ class Public::RecipesController < ApplicationController
   def create
     recipe = current_user.recipes.new(recipe_params)
     recipe.user_id = current_user.id
-    if recipe.save
-      redirect_to recipes_path
-      # , flash: { notice: "「#{recipe.title}」のレシピを投稿しました。" }
+    if recipe.save!
+      flash[:notice] = "レシピを投稿しました。"
+      redirect_to recipes_path(recipe.id)
     else
-      redirect_to new_recipe_path
-      # , flash: {
-      #   recipe: recipe,
-      #   error_messages: recipe.errors.full_messages
-      # }
+      @recipes = Recipe.all
+      flash[:notice] = "error"
+      render :index
     end
   end
+
    def index
     # @title = "レシピ一覧"
     @recipes = Recipe.all
@@ -30,16 +29,49 @@ class Public::RecipesController < ApplicationController
    end
    
    def show
-     @recipe = Recipe.find(params.id)
+    @recipe = Recipe.find(params[:id])
       # @title = "#{@recipe.title}"
-    @comments = Comment.includes([:user]).where(recipe_id: @recipe.id)
-
-    if user_signed_in?
-      @comment = current_user.comments.new(flash[:comment])
-      @comment_reply = current_user.comments.new
-    end
+    # @comments = Comment.includes([:user]).where(recipe_id: @recipe.id)
+    
+    @comments = @recipe.comments  #投稿詳細に関連付けてあるコメントを全取得
+    
+    # @comment = current_user.comments.new  
+    #投稿詳細画面でコメントの投稿を行うので、
+    #formのパラメータ用にCommentオブジェクトを取得
+    
+    # if user_signed_in?
+    #   @comment = current_user.comments.new(flash[:comment])
+    #   @comment_reply = current_user.comments.new
+    # end
+     # raty.js用のフォーム
+    @review = Review.new
+    # raty.jsの平均値
+    @review_avg = Review.where(recipe_id: params[:id]).average(:review)
+    # すでに評価済みかの確認フラグ
+    @review_flg = Review.find_by(user_id: current_user.id, recipe_id: params[:id])
    end
-
+   
+   def update
+        @recipe = Recipe.find(params[:id])
+     if @recipe.update(recipe_params)
+        flash[:notice] = "successfully"  
+        redirect_to recipe_path(@recipe.id)  
+     else 
+        flash[:notice] = "error"  
+        render :edit
+     end
+   end
+     
+    def edit
+        @recipe = Recipe.find(params[:id])
+        if  @recipe.user == current_user
+            render :edit
+        else 
+            redirect_to recipes_path
+        end   
+    end 
+     
+     
   def destroy
        recipe = Recipe.find(params[:id])
     if recipe.destroy
@@ -47,9 +79,10 @@ class Public::RecipesController < ApplicationController
     redirect_to recipes_path
     end
   end
+  
   private
   def recipe_params
-      params.require(:recipe).permit(:image,:title,:description,:star,:steps,:ingredients,
+      params.require(:recipe).permit(:image,:title,:description,:review,:steps,:ingredients,
         # :remove_image,
         # :image_cache,
         # :keyword,

@@ -15,8 +15,25 @@ class Recipe < ApplicationRecord
   has_many :tags, through: :recipe_tag_relations
 #   いいね
   has_many :favorites, dependent: :destroy
-  
+#   レビュー
+  has_many :reviews, dependent: :destroy
   has_one_attached :image
+  
+  validates :title, presence: true
+  validates :description, presence: true
+  # validates :image, presence: true
+  
+   def favorited_by?(user)
+    favorites.exists?(user_id: user.id)
+   end
+   
+   def get_image
+    if image.attached?
+      image
+    else
+      'no-image1.jpg'
+    end
+   end
 
   def require_any_ingredients
     errors.add(:base, "材料は1つ以上登録してください。") if self.ingredients.blank?

@@ -1,5 +1,60 @@
-<%= render 'form', recipe: @recipe %>
+<!--<#%= render 'form', recipe: @recipe %>-->
 
+<div class = "container mt-5">
+
+
+<%= form_with model: @recipe, method: :patch do |f| %>
+  　<h4>イメージ写真</h4>
+  <%= f.file_field :image, accept: "image/jpeg,image/gif,image/png", class: "image" %>
+  
+  <h4>レシピについて</h4>
+  <%= f.text_field :title,placeholder: "タイトル(50文字以内)" ,size: 35 %>
+	
+  <h4>本文</h4>
+  <%= f.text_area :description, placeholder: "サブタイトル(140字以内)",size: 35 %>
+	
+	<h4>材料</h4>
+	 <section class="ingredient">
+    <%= f.fields_for :ingredients do |ingredient| %>
+            <%#= render "ingredient_fields", f: ingredient %>
+    <%= f.text_field :content, placeholder: "材料", class:"ingredient__content"%>
+    <%= f.text_field :quantity, placeholder: "分量", class:"ingredient__quantity" %>
+    <%= link_to_remove_association "削除", f %>
+    <%= link_to '#' , class: "remove-field-btn" do %>
+      <!--<#%= image_tag 'delete', class: "js-remove_fields" %>-->
+    <% end %>
+    <% end %>
+            <%= link_to_add_association "材料の追加", f, :ingredients %>
+    </section>
+        
+  <h4>作り方</h4>
+  <section class="step">
+    <div class="field">
+      <%= f.fields_for :steps do |step| %>
+        <!--<#%= render "step_fields", f: step %>-->
+        <%= f.text_area :direction, class:"step__input"%>
+    <div class="step__form-img">
+      <!--<#%= image_tag f.object.image.url %>-->
+    </div>
+    <%= link_to '#' , class: "remove-field-btn" do %>
+      <!--<#%= image_tag 'delete', class: "js-remove_fields" %>-->
+    <% end %>
+    <div class="step__file-input">
+      <% if current_page?(controller:"recipes", action: "new") %>
+        <span class="step__file-label">手順の画像：</span><%= f.file_field :image,
+        accept: "image/jpeg,image/gif,image/png", id: "step-image" %>
+      <%= link_to_remove_association "削除", f %>
+      <% else %>
+        <span class="step__file-label">変更後の画像：</span><%= f.file_field :image,
+        accept: "image/jpeg,image/gif,image/png", id: "step-image" %>
+        <%= link_to_remove_association "削除", f %>
+      <% end %>
+      <% end %>
+      <%= link_to_add_association "作り方の追加", f, :steps %>
+    </div>
+  </section>
+  
+  <% end %>
 <div class="cancel"><%= link_to '編集をやめる', @recipe, class:"btn cancel-btn"%></div>
 
 <div class="cancel"><%= link_to 'レシピを削除', @recipe, method: :delete,

@@ -2,12 +2,13 @@ class User < ApplicationRecord
   # レシピ系
   has_many :recipes, dependent: :destroy
   #  コメント系
-  has_many :comments
+  has_many :comments, dependent: :destroy
 
   # いいね機能関連
   has_many :favorites, dependent: :destroy
 
-  has_many :favorite_recipes, through: :favorites, source: :recipe
+  # has_many :favorite_recipes, through: :favorites, source: :recipe
+  
   
   def already_favorited?(recipe)
     self.favorites.exists?(recipe_id: recipe.id)

@@ -1,15 +1,31 @@
-<section class="favorite">
-  <% if user_signed_in? %>
-    <% if current_user.already_favorited?(recipe) %>
-      <%= link_to recipe_favorites_path(recipe), remote: true, method: :delete, class: "favorite__link" do %>
-        <i class="fas fa-heart favorite__btn"></i>
-      <% end %>
-      <span class="favorite__count"><%= recipe.favorites.length %></span>
-    <% else %>
-      <%= link_to recipe_favorites_path(recipe), remote: true, method: :post, class: "favorite__link" do %>
-        <i class="far fa-heart favorite__btn"></i>
-      <% end %>
-      <span class="favorite__count"><%= recipe.favorites.length %></span>
-    <% end %>
-  <% end %>
-</section>
+<!--  <#% if user_signed_in? %>-->
+<!--    <#% if current_user.already_favorited?(recipe) %>-->
+<!--      <#%= link_to recipe_favorites_path(recipe), remote: true, method: :delete, class: "favorite__link" do %>-->
+<!--        <i class="fas fa-heart favorite__btn"></i>-->
+<!--      <#% end %>-->
+<!--      <span class="favorite__count"><#%= recipe.favorites.length %></span>-->
+<!--    <#% else %>-->
+<!--      <#%= link_to recipe_favorites_path(recipe), remote: true, method: :post, class: "favorite__link" do %>-->
+<!--        <i class="far fa-heart favorite__btn"></i>-->
+<!--      <#% end %>-->
+<!--      <span class="favorite__count"><#%= recipe.favorites.length %></span>-->
+<!--    <#% end %>-->
+<!--  <#% end %>-->
+
+
+
+<!--<section class="favorite">-->
+<!--<#% if @recipe.favorited_by?(current_user) %>-->
+<!--    <p>-->
+<!--      <#%= link_to favorite_path(@recipe), method: :delete do %>-->
+<!--        ♥<#%= @recipe.favorites.count %> いいね-->
+<!--      <#% end %>-->
+<!--    </p>-->
+<!--    <#% else %>-->
+<!--    <p>-->
+<!--      <#%= link_to  favorites_path(@recipe), method: :post do %>-->
+<!--        ♡<#%= @recipe.favorites.count %> いいね-->
+<!--      <#% end %>-->
+<!--    </p>-->
+<!--  <#% end %></div>-->
+<!--</section>-->

@@ -1,22 +1,21 @@
 <main>
 <%= form_with model: @recipe, method: :post do |f| %>
-
 　<h4>イメージ写真</h4>
   <%= f.file_field :image, accept: "image/jpeg,image/gif,image/png", class: "image" %>
   
   <h4>レシピについて</h4>
-  <%= f.text_field :title,placeholder: "タイトル(50文字以内)" ,size: 35 %>
+  <%= f.text_field :title,placeholder: "レシピ名(50文字以内)" ,size: 35 %>
 	
   <h4>本文</h4>
-  <%= f.text_area :description, placeholder: "サブタイトル(140字以内)",size: 35 %>
+  <%= f.text_area :description, placeholder: "レシピの説明(140字以内)",size: 35 %>
 	
 	<h4>材料</h4>
-	 <section class="ingredient">
-          <%= f.fields_for :ingredients do |ingredient| %>
-            <%= render "ingredient_fields", f: ingredient %>
-          <% end %>
-            <%= link_to_add_association "材料の追加", f, :ingredients %>
-    </section>
+	<section class="ingredient">
+    <%= f.fields_for :ingredients do |ingredient| %>
+      <%= render "ingredient_fields", f: ingredient %>
+    <% end %>
+    <%= link_to_add_association "材料の追加", f, :ingredients %>
+  </section>
         
   <h4>作り方</h4>
   <section class="step">
@@ -27,6 +26,25 @@
       <%= link_to_add_association "作り方の追加", f, :steps %>
     </div>
   </section>
-	
+
+  <%= f.label :review, "評価：" %>
+  <div id="review"></div>
+  <%#= f.hidden_field :review, id: :review %>
+
+  <script>
+    $('#review').empty(); // Turbolinksで星が増殖する現象を解消
+    $('#review').raty({
+        size     : 36,
+        starOff: '<%= asset_path('star-off.png') %>',
+        starOn: '<%= asset_path('star-on.png') %>',
+        starHalf: '<%= asset_path('star-half.png') %>',
+        // 登録するモデル名とカラム名を記述
+        //  送信値として採用される
+        scoreName: 'recipe[review]',
+        half: true,
+    });
+  </script>
+
+  
   <%= f.submit '投稿' %>
 <% end %>

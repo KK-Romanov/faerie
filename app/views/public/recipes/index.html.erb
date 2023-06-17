@@ -1,21 +1,35 @@
-
+<div class = "container mt-5" >
 <section class="list">
-  <div class="cooking-title">レシピ一覧</div>
+  <div class="cooking-title"><h4>レシピ一覧</h4></div>
  <% @recipes.each do |recipe|%>
-  <%= image_tag recipe.image if recipe.image.attached? %>
- <%= recipe.title %>
- <br>
- <%= recipe.description %>
-  <% recipe.ingredients.each do |ingredient| %>
-   <%= ingredient.content %>
-   <%= ingredient.quantity %>
-   
-  <% end %> 
-  
-  <% recipe.steps.each do |step| %>
-  <% step.direction %> 
+    <div>
+     <%= link_to recipe_path(recipe.id) do %>
+      <!--<#%= image_tag recipe.image if recipe.image.attached? %>-->
+       <% if recipe.image.attached? %>
+         <%= image_tag recipe.image, size: "200x180" %>
+       <% else %>
+         <%= image_tag 'no-image1', size: "200x180" %>
+       <% end %>
+      <p><%= recipe.title %></p>
+    </div>
+   <% end %>
+    <br>
+     総合評価:<div id="review-<%= recipe.id %>"></div>
+      <script>
+        $('#review-<%= recipe.id %>').empty(); // Turbolinksで星が増殖する現象を解消
+        $('#review-<%= recipe.id %>').raty({
+            size     : 36,
+            starOff: '<%= asset_path('star-off.png') %>',
+            starOn: '<%= asset_path('star-on.png') %>',
+            starHalf: '<%= asset_path('star-half.png') %>',
+            // 登録するモデル名とカラム名を記述
+            //  送信値として採用される
+            half: true,
+            readOnly: true, // # 読み取り専用
+            score: <%= recipe.review %>, // # 星評価の表示
+        });
+      </script>
   <% end %>
- <% end %>
+ </section>
 
-  <%= paginate @recipes %>
-</section>
+  <!--<#%= paginate @recipe %>-->

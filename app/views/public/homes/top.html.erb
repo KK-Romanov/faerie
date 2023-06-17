@@ -27,6 +27,8 @@
           <div class="text-white">
             <h1 class="mb-2"><h1>Welcome to féerie</h1>
              <h5 class="mb-4">Make yourlife enjoy more </h5>
+              <% if user_signed_in? %>
+                <% else %>
               <!--head新規登録-->
                 <%= link_to new_user_registration_path do %>
                      <div class="btn btn-outline-light btn-lg m-2" tabindex="0" role="button" >
@@ -40,6 +42,7 @@
                         <i class="fas fa-sign-in-alt"></i>ログイン
                      </div>
                 <% end %>
+              <% end %>
               <!--endログイン-->
           </div>
         </div>

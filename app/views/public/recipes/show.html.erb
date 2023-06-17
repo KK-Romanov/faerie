@@ -1,15 +1,51 @@
+<div class = "container mt-5">
 <main>
+     <h1>レシピ詳細</h1>
   <section class="description">
     <div class="description__inner">
       <div class="description__img-field">
         <div class="description__img">
-          <%= image_tag @recipe.image.url %>
-        </div>
+
+      <%= image_tag @recipe.get_image, size: "400x400" %>
+      </div>
       </div>
       <div class="description__texts">
         <div class="description__title">
+        <% if @recipe.favorited_by?(current_user) %>
+            <p>
+              <%= link_to  recipe_favorites_path(@recipe.id),method: :delete do %>
+                ♥<%= @recipe.favorites.count %> いいね
+              <% end %>
+            </p>
+            <% else %>
+            <p>
+              <%= link_to  recipe_favorites_path(@recipe.id),method: :post do %>
+                ♡<%= @recipe.favorites.count %> いいね
+              <% end %>
+            </p>
+          <% end %>
+          
+        総合評価：<div id="review"></div>
+        <%#= f.hidden_field :review, id: :review %>
+        <script>
+          $('#review').empty(); // Turbolinksで星が増殖する現象を解消
+          $('#review').raty({
+              size     : 36,
+              starOff: '<%= asset_path('star-off.png') %>',
+              starOn: '<%= asset_path('star-on.png') %>',
+              starHalf: '<%= asset_path('star-half.png') %>',
+              // 登録するモデル名とカラム名を記述
+              //  送信値として採用される
+              half: true,
+              readOnly: true, // # 読み取り専用
+              score: <%= @recipe.review %>, // # 星評価の表示
+          });
+        </script>
           <%= @recipe.title %>
           <div class="description__detail">
+            <strong>
+            レシピの説明
+            </strong>
             <%= @recipe.description %>
           </div>
         </div>
@@ -17,21 +53,9 @@
           <%= render partial: "favorite", locals: { recipe: @recipe } %>
         </div>
 
-        <div class="recipeuser">
-          <div class="cooking-title">ユーザープロフィール</div>
-          <div class="recipeuser__inner">
-            <div class="recipeuser__img">
-              <%= link_to image_tag(@recipe.user.avatar.url), user_path(id: @recipe.user_id) %>
-            </div>
-            <%= link_to @recipe.user.name, user_path(id: @recipe.user_id), class:"recipeuser__name" %>
-            <% if user_signed_in? && @recipe.user == current_user %>
-              <%= link_to 'レシピ編集', edit_recipe_path, class:"btn recipe-edit-btn" %>
-            <% end %>
-          </div>
-        </div>
 
         <section class="ingredient">
-          <div class="cooking-title">材料</div>
+          <div class="cooking-title"><b>材料</b></div>
           <% @recipe.ingredients.each do |ingredient| %>
             <div class="ingredient__ul">
               <div><%= ingredient.content %></div>
@@ -43,21 +67,8 @@
     </div>
   </section>
 
-  <section class="tag">
-    <div class="cooking-title">関連タグ</div>
-    <div class="tag__container">
-      <% if @recipe.tags.empty? %>
-        <p class="tag__none">関連タグが設定されていません</p>
-      <% else %>
-        <% @recipe.tags.each do |tag| %>
-          <%= render_with_tags(tag.name, tag.id) %>
-        <% end %>
-      <% end %>
-    </div>
-  </section>
-
   <section class="step">
-    <div class="cooking-title">作り方</div>
+    <div class="cooking-title"><b>作り方</b></div>
     <% @recipe.steps.each do |step| %>
       <div class="step__item">
         <div class="step__inner">
@@ -74,5 +85,55 @@
       </div>
     <% end %>
   </section>
-  <%= render 'shared/recipe_comment', comments: @comments %>
+
+  <section class="tag">
+    <div class="cooking-title">関連タグ</div>
+    <div class="tag__container">
+      <% if @recipe.tags.empty? %>
+        <p class="tag__none">関連タグが設定されていません</p>
+      <% else %>
+        <% @recipe.tags.each do |tag| %>
+          <%= render_with_tags(tag.name, tag.id) %>
+        <% end %>
+      <% end %>
+    </div>
+  </section>
+  <!--<#%= render 'shared/recipe_comment', comments: @comments %>-->
 </main>
+        <div class="recipeuser">
+          <div class="cooking-title">投稿ユーザー</div>
+          <%= @recipe.user.name%>
+          <div class="recipeuser__inner">
+            <div class="recipeuser__img">
+              <!--<#%= link_to image_tag(@recipe.user.avatar.url), user_path(id: @recipe.user_id) %>-->
+            </div>
+            <!--<#%= link_to @recipe.user.name, user_path(id: @recipe.user_id), class:"recipeuser__name" %>-->
+          </div>
+        </div>
+        <p>投稿日：<%= @recipe.created_at.strftime('%Y/%m/%d') %></p>
+
+
+<div>
+  <p>コメント件数：<%= @recipe.comments.count %></p>
+  <% @recipe.comments.each do |comment| %>
+    <!--<p><#%= image_tag comment.user.get_profile_image(100,100) %></p>-->
+    <%= comment.user.name %>
+    <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.content %>
+  <% end %>
+</div>
+<div>
+  <%= form_with model: @comments, url: recipe_comments_path(@recipe) , method: :post do |f| %>
+    <%= f.text_area :content, rows: '5', placeholder: "コメントをここに" %>
+    <%= f.hidden_field :recipe_id, value: @recipe.id %>
+    <%= f.submit "コメント送信する" %>
+  <% end %>
+
+
+
+</div>
+  
+</section>
+            <% if user_signed_in? && @recipe.user == current_user %>
+              <%= link_to 'レシピ編集', edit_recipe_path, class:"btn recipe-edit-btn" %>
+            <% end %>
+</div>

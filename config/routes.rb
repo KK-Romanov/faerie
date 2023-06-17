@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'review/createdestroy'
   # Admin side
   devise_for :admin,controllers: {
   sessions: "admin/sessions"
@@ -41,9 +42,12 @@ scope module: :public do
    root to: 'homes#top'
    get "/about" => "homes#about", as: "about"
     # get 'recipes/tweet', to: "homes#tweet_index"
-  resources :favorites, only: [:destroy, :create]  
-  resources :comment, only: [:destroy, :create]  
-  resources :recipes, only: [:new, :index, :edit, :update, :destroy, :create]
+  resources :recipes, only: [:new, :index, :edit, :update, :destroy, :create, :show] do
+   resources :comments, only: [:destroy, :create]
+    resource :favorites, only: [:destroy, :create]  
+    resources :reviews, only: %w[create destroy]
+   
+   end
     # get 'recipes/tag_search'
      get 'recipes/tag/:name', to: "recipes#tag_search"
      get 'recipes/search', to: 'recipes#search'
