@@ -28,7 +28,7 @@
                   <a class="text-white navbar-brand">
                   ようこそ、<%= current_user.name %>さん！
                   </a>
-                <%= link_to users_my_page_path, class: "text-white navbar-brand" do %>
+                <%= link_to my_page_path(current_user.id), class: "text-white navbar-brand" do %>
                  <i class="fa-solid fa-street-view"></i>マイページ
                 <% end %>
               </li>

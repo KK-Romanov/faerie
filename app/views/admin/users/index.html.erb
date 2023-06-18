@@ -1,2 +1,35 @@
-<h1>Admin::Users#index</h1>
-<p>Find me in app/views/admin/users/index.html.erb</p>
+<div class = "container mt-5">
+    
+      <h1>会員一覧</h1>
+    
+        
+        
+<table class = "table">
+    <thead>
+      <tr>
+        <th scope = "col">会員ID</th>
+        <th scope = "col">氏名</th>
+        <th scope = "col">メールアドレス</th>
+        <th scope = "col">ステータス</th>
+      </tr>
+    </thead>
+      <tbody>         
+        <% @customers.each do |customer| %>
+        <tr>
+           <td><%= user.id %></td>
+           <td><%= link_to  admin_user_path(user.id) do %>
+              <%= user.name %>
+              <% end %>
+           </td>
+           <td><%= user.email %></td>
+           <td><% if user.is_deleted? %>
+           <p class="text-danger"><span>退会</span></p>
+               <% else %>
+            <p class="text-success"><span>有効</span></p>
+               <% end %>
+             </td>
+        </tr>
+      </tbody>
+  
+     <% end %>
+</div>

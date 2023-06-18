@@ -1,2 +1,60 @@
-<h1>Admin::Users#edit</h1>
-<p>Find me in app/views/admin/users/edit.html.erb</p>
+<div class = "cantainer mt-5">
+  <div class = "text-center">
+     <p>
+      <h2><b>登録情報</b></h2>
+       <div class = "row -3">
+        <div class = "col-md-2">
+         </div>
+      <div class = "col-md-8">
+        <table class="table table-hover">
+           <%= form_with model: @user, url:  admin_user_path(@user.id), method: :patch do |f| %>
+          <tr>
+              <th>
+               <b>会員ID</b>
+              </th>
+              <td><%= @user.id %></td>
+             <br>
+          </tr>
+          <tr>
+              <th>
+                <b>氏名</b>
+             </th>
+                  <td><%= f.text_field:name, :size=> "11" %>
+              <br>
+           </tr>
+            <tr>
+              <tr>
+                <th>
+                   <b>メールアドレス</b>
+                </th>
+                    <td><%= f.text_field :email, :size=> "25" %></td>
+              </tr>
+              <tr>
+                <th>
+                   <b>会員ステータス</b>
+                </th>
+                      <td>
+                      <%= f.radio_button :is_deleted, true %>
+                      <%= f.label :is_deleted, "退会" %>
+                      <%= f.radio_button :is_deleted, false %>
+                      <%= f.label :is_deleted, "有効" %>
+                      </td>
+               </tr>       
+       </table>
+               <div class='form-group'>
+               <%= f.submit '変更を保存', class:"btn btn-success" %>
+               <div>
+       </div>
+                      
+       <% end %> 
+       
+       <div class = "col-md-2">
+       </div>
+       
+   </div>
+  </div>
+ </div>
+   
+   
+   <!--参考記述-->
+   <!--- @customer.last_name_kana + " " + @customer.first---->

@@ -27,12 +27,19 @@ class Recipe < ApplicationRecord
     favorites.exists?(user_id: user.id)
    end
    
+  # def get_image
+  #   if image.attached?
+  #     image
+  #   else
+  #     'no-image1.jpg'
+  #   end
+  # end
    def get_image
-    if image.attached?
-      image
-    else
-      'no-image1.jpg'
+    unless image.attached?
+      file_path = Rails.root.join('app/assets/images/no-image1.jpg')
+      image.attach(io: File.open(file_path), filename: 'no-image1.jpg', content_type: 'image/jpeg')
     end
+    image
    end
 
   def require_any_ingredients

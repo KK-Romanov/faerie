@@ -1,4 +1,14 @@
 <div class = "container mt-5" >
+  <%= form_with url: recipes_path, method: :get, class: 'recipes__searchForm' do %>
+      <%= select_tag :tag_id,
+                      options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
+                      {
+                        prompt: 'タグで絞り込み',
+                        class: 'form-control recipes__select',
+                        onchange: 'submit(this.form);'
+                      } 
+      %>
+    <% end %>
 <section class="list">
   <div class="cooking-title"><h4>レシピ一覧</h4></div>
  <% @recipes.each do |recipe|%>

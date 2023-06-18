@@ -10,18 +10,27 @@ class Public::UsersController < ApplicationController
     # else
     #   @recipes = @user.recipes.page(params[:page]).per(6)
     # end
+    @user = User.find(params[:id])
+      @recipe = @user.recipes 
+       @current_user = current_user
   end
 
   def edit
-    # @user = current_user
+    @user = current_user
      @user = User.find(params[:id])
+     if  @user == current_user
+        render :edit
+     else 
+        redirect_to user_path(current_user)
+     end   
+     
   end
   
   def update
         @user = current_user
         # binding.pry
-    if  @customer.update(user_params)
-        redirect_to users_my_page_path
+    if  @user.update(user_params)
+        redirect_to my_page_path
     else 
         render :edit
     end
@@ -54,7 +63,7 @@ class Public::UsersController < ApplicationController
 private
   
     def user_params
-        params.require(:user).permit(:name, :email)
+        params.require(:user).permit(:name, :email,:profile, :profile_image, :introduction)
     end
       
     def is_matching_login_user

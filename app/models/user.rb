@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
+         
   # レシピ系
   has_many :recipes, dependent: :destroy
   #  コメント系
@@ -9,6 +12,18 @@ class User < ApplicationRecord
 
   # has_many :favorite_recipes, through: :favorites, source: :recipe
   
+  has_one_attached :profile_image
+  
+  # プロフィール画像header
+  def get_profile_image(width, height)
+    unless profile_image.attached?
+      file_path = Rails.root.join('app/assets/images/no_image.jpg')
+      profile_image.attach(io: File.open(file_path), filename: 'no_image.jpg', content_type: 'image/jpeg')
+    end
+    # profile_image.variant(resize_to_limit: [100, 100]).processed
+      profile_image.variant(resize_to_limit: [width, height]).processed
+  end
+  # プロフィール画像footer
   
   def already_favorited?(recipe)
     self.favorites.exists?(recipe_id: recipe.id)
@@ -23,8 +38,6 @@ class User < ApplicationRecord
   end
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
-         
 
 end
+

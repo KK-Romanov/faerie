@@ -31,12 +31,12 @@ devise_for :users,controllers: {
 #   }
 #skip: [:passwords],   使用検討中
 scope module: :public do 
-
-      get "/users/my_page" => "users#show"
-      get "/users/information/edit"  => "users#edit"
-      patch "/users/information" => "users#update"
-      get "/users/unsubscribe" => "users#unsubscribe", as: "unsubscribe"
-      patch  "/users/withdraw" => "users#withdraw", as: "withdraw"
+   resources :users, only: [:index , :update]
+      get "/users/:id/my_page" => "users#show", as: "my_page"
+      get "/users/information/:id/edit" => "users#edit", as: "information_edit"
+      patch "/users/information/:id" => "users#update", as: "information"
+      get "/users/unsubscribe/:id" => "users#unsubscribe", as: "unsubscribe"
+       patch  "/users/withdraw" => "users#withdraw", as: "withdraw"
       # get 'users/favorites'
   resources :homes
    root to: 'homes#top'
