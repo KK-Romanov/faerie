@@ -47,7 +47,7 @@
   
     <div class="form-group">
     <span>タグ</span>
-    <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+    <%= f.collection_check_boxes(:tag_ids, @tags, :id, :name) do |tag| %>
       <div class="form-check">
         <%= tag.label class: 'form-check-label' do %>
           <%= tag.check_box class: 'form-check-input' %>
@@ -57,5 +57,13 @@
     <% end %>
   </div>
   
+
+
+<%#= form_with model:@recipe, local: true do |f| %>
+<!--※タグの部分のみ抜粋-->
+  <%= f.text_field :tag_names, class: "form-control",
+    placeholder: "タグをつける。複数つけるには ' , ' で区切ってください。" %>
+
   <%= f.submit '投稿' %>
+<%# end %>
 <% end %>

@@ -1,4 +1,5 @@
 class Public::FavoritesController < ApplicationController
+   before_action :authenticate_user!
    before_action :recipe_params
    
   def create
@@ -23,3 +24,28 @@ class Public::FavoritesController < ApplicationController
     end
 end
 
+
+
+# いいね機能＝＞ブックマーク機能に展開
+#   def create
+#     recipe = Recipe.find(params[:recipe_id])
+#     favorite = recipe.favorites.new(user_id: current_user.id)
+#     if favorite.save
+#       redirect_to request.referer
+#     else
+#       redirect_to request.referer
+#     end
+#   end
+
+#   def destroy
+#     recipe = Recipe.find(params[:recipe_id])
+#     favorite = recipe.favorites.find_by(user_id: current_user.id)
+#     if favorite.present?
+#        favorite.destroy
+#         redirect_to request.referer
+#     else
+#         redirect_to request.referer
+#     end
+#   end
+# end
+# # fovorite.present?を挟んでいるのは、２度押しのエラーを回避するためです。

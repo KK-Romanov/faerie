@@ -1,6 +1,6 @@
 <div class = "container mt-5" >
   <%= form_with url: recipes_path, method: :get, class: 'recipes__searchForm' do %>
-      <%= select_tag :tag_id,
+      <%= select_tag :tag_ids,
                       options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
                       {
                         prompt: 'タグで絞り込み',
@@ -21,8 +21,11 @@
          <%= image_tag 'no-image1', size: "200x180" %>
        <% end %>
       <p><%= recipe.title %></p>
+    <% end %>
+      <% recipe.tags.each do |tag| %>
+        <%= tag.name %>
+       <% end %>
     </div>
-   <% end %>
     <br>
      総合評価:<div id="review-<%= recipe.id %>"></div>
       <script>
@@ -36,10 +39,10 @@
             //  送信値として採用される
             half: true,
             readOnly: true, // # 読み取り専用
-            score: <%= recipe.review %>, // # 星評価の表示
+            score: '<%= recipe.review %>' // # 星評価の表示
         });
       </script>
-  <% end %>
+    <% end %>
  </section>
 
   <!--<#%= paginate @recipe %>-->

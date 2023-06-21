@@ -29,3 +29,28 @@
 <!--    </p>-->
 <!--  <#% end %></div>-->
 <!--</section>-->
+
+<!--bookmark on favorites--->
+<!--<table>-->
+<!--  <caption>ブックマーク一覧</caption>-->
+<!--  <thead>-->
+<!--    <tr>-->
+<!--      <th>投稿者名</th>-->
+<!--      <th>タイトル</th>-->
+<!--      <th>本文</th>-->
+<!--    </tr>-->
+<!--  </thead>-->
+<!--  <tbody>-->
+<!--    <#% @bookmarks.each do |bookmark| %>-->
+<!--      <tr>-->
+<!--        <td><#%= bookmark.post.user.name %></td>-->
+<!--        <td>-->
+<!--          <#%= link_to post_path(bookmark.post) do %>-->
+<!--            <#%= bookmark.post.title %>-->
+<!--          <#% end %>-->
+<!--        </td>-->
+<!--        <td><#%= bookmark.post.body %></td>-->
+<!--      </tr>-->
+<!--    <#% end %>-->
+<!--  </tbody>-->
+<!--</table>-->

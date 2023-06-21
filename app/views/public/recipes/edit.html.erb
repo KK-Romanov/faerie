@@ -52,10 +52,16 @@
       <% end %>
       <%= link_to_add_association "作り方の追加", f, :steps %>
     </div>
+    <%= f.text_field :tag_ids,value: @tag_list,\
+    placeholder: "タグをつける。複数つけるには','で区切ってください。" %>
+   <span>
+     <%= f.submit '投稿' %>
+    </span>
   </section>
-  
+     
   <% end %>
 <div class="cancel"><%= link_to '編集をやめる', @recipe, class:"btn cancel-btn"%></div>
 
 <div class="cancel"><%= link_to 'レシピを削除', @recipe, method: :delete,
 data: { confirm: "削除してよろしいですか？" }, class:"btn cancel-btn"%></div>
+

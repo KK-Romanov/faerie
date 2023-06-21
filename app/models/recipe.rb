@@ -12,6 +12,7 @@ class Recipe < ApplicationRecord
   has_many :comments, dependent: :destroy
 #   タグ系
   has_many :recipe_tag_relations, dependent: :delete_all, validate: false
+  accepts_nested_attributes_for :recipe_tag_relations, allow_destroy: true
   has_many :tags, through: :recipe_tag_relations
 #   いいね
   has_many :favorites, dependent: :destroy
@@ -27,13 +28,11 @@ class Recipe < ApplicationRecord
     favorites.exists?(user_id: user.id)
    end
    
-  # def get_image
-  #   if image.attached?
-  #     image
-  #   else
-  #     'no-image1.jpg'
-  #   end
+  # def favorited_by?(user)
+  #   favorites.where(user_id: user).exists?
   # end
+  
+  
    def get_image
     unless image.attached?
       file_path = Rails.root.join('app/assets/images/no-image1.jpg')
@@ -49,5 +48,21 @@ class Recipe < ApplicationRecord
   def require_any_steps
     errors.add(:base, "作り方は1つ以上登録してください。") if self.steps.blank?
   end
+
+def save_tags(saverecipe_tags)
+    #current_tags = self.tags.pluck(:name) unless self.tags.nil?
+    #old_tags = current_tags - saverecipe_tags
+    #new_tags = saverecipe_tags - current_tags
+
+   # old_tags.each do |old_name|
+    #  self.tags.delete Tag.find_by(name: old_name)
+    #end
+
+    saverecipe_tags.each do |new_name|
+      recipe_tag = Tag.find_or_create_by(name: new_name)
+      self.tags << recipe_tag
+    end
+end
+
 
 end

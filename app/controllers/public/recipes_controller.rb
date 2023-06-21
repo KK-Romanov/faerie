@@ -2,14 +2,17 @@ class Public::RecipesController < ApplicationController
   
   def new
      @recipe = Recipe.new  
+     @tags = Tag.where(name: Tag::SELECT_TAG)
   end
   
   def create
     recipe = current_user.recipes.new(recipe_params)
     recipe.user_id = current_user.id
+    tag_names = params[:recipe][:tag_names].split(',')
     if recipe.save!
+        recipe.save_tags(tag_names)
       flash[:notice] = "レシピを投稿しました。"
-      redirect_to recipes_path(recipe.id)
+      redirect_to recipes_path
     else
       @recipes = Recipe.all
       flash[:notice] = "error"
@@ -21,6 +24,7 @@ class Public::RecipesController < ApplicationController
     # @title = "レシピ一覧"
     @recipes = Recipe.all
     # params[:tag_id].present? ? Tag.find(params[:tag_id]).recipes : Recipe
+     @recipes = params[:tag_ids].present? ? Tag.find(params[:tag_ids]).recipes : Recipe.all
     if user_signed_in?
       @recipes = @recipes.includes([:user], [:favorites]).page(params[:page]).per(6)
     else
@@ -53,7 +57,9 @@ class Public::RecipesController < ApplicationController
    
    def update
         @recipe = Recipe.find(params[:id])
+        tag_list = params[:recipe][:tag_ids].split(',')
      if @recipe.update(recipe_params)
+         @recipe.save_tags(tag_list)
         flash[:notice] = "successfully"  
         redirect_to recipe_path(@recipe.id)  
      else 
@@ -64,6 +70,7 @@ class Public::RecipesController < ApplicationController
      
     def edit
         @recipe = Recipe.find(params[:id])
+        @tag_list =@recipe.tags.pluck(:name).join(",")
         if  @recipe.user == current_user
             render :edit
         else 
@@ -87,6 +94,7 @@ class Public::RecipesController < ApplicationController
         # :image_cache,
         # :keyword,
         tag_ids: [],
+        tag_names: [],
         ingredients_attributes: [:id, :content, :quantity, :_destroy],
         steps_attributes: [:id, :direction, :image, :_destroy]
       )

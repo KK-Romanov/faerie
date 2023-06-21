@@ -93,8 +93,11 @@
         <p class="tag__none">関連タグが設定されていません</p>
       <% else %>
         <% @recipe.tags.each do |tag| %>
-          <%= render_with_tags(tag.name, tag.id) %>
-        <% end %>
+        <!--  <#%= render_with_tags(tag.name, tag.id) %>-->
+        <!--<#% end %>-->
+        <!--<#% @recipe.tags.each do |tag| %>-->
+         <%= tag.name %>
+          <% end %>
       <% end %>
     </div>
   </section>
