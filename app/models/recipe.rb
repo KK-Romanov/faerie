@@ -15,7 +15,6 @@ class Recipe < ApplicationRecord
   # accepts_nested_attributes_for :recipe_tag_relations, allow_destroy: true
   # （子）関連テーブルを合わせて、同時に複数保存。
   # allow_destroy は　編集・削除も可能とするoption
-  
   has_many :tags, through: :recipe_tag_relations
 #   いいね
   has_many :favorites, dependent: :destroy
@@ -55,7 +54,7 @@ class Recipe < ApplicationRecord
 
 def save_tags(saverecipe_tags) #= [b,c]
     current_tags = self.tags.pluck(:name) unless self.tags.nil? #=[a,b]
-    old_tags = current_tags - 
+    old_tags = current_tags - saverecipe_tags
     # [a,b]-[b,c] = a
     new_tags = saverecipe_tags - current_tags
     # [b,c]-[a,b] = c
