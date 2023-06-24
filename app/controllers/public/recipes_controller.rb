@@ -9,8 +9,9 @@ class Public::RecipesController < ApplicationController
     recipe = current_user.recipes.new(recipe_params)
     recipe.user_id = current_user.id
     tag_names = params[:recipe][:tag_names].split(',')
+    checked_tag_names = Tag.where(id: params[:recipe][:tag_ids]).pluck(:name)
     if recipe.save!
-        recipe.save_tags(tag_names)
+        recipe.save_tags(tag_names + checked_tag_names)
       flash[:notice] = "レシピを投稿しました。"
       redirect_to recipes_path
     else
@@ -93,8 +94,8 @@ class Public::RecipesController < ApplicationController
         # :remove_image,
         # :image_cache,
         # :keyword,
-        tag_ids: [],
-        tag_names: [],
+        # tag_ids: [],
+        # tag_names: [],
         ingredients_attributes: [:id, :content, :quantity, :_destroy],
         steps_attributes: [:id, :direction, :image, :_destroy]
       )

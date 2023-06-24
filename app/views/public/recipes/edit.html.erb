@@ -52,8 +52,10 @@
       <% end %>
       <%= link_to_add_association "作り方の追加", f, :steps %>
     </div>
+    <!--Tag Head Start-->
     <%= f.text_field :tag_ids,value: @tag_list,\
     placeholder: "タグをつける。複数つけるには','で区切ってください。" %>
+   <!--Tag E-->
    <span>
      <%= f.submit '投稿' %>
     </span>

@@ -1,9 +1,10 @@
 class Tag < ApplicationRecord
+#  レシピタグ  
+  has_many :recipe_tag_relations, dependent: :destroy
 #  レシピ
   has_many :recipes, through: :recipe_tag_relations
-#  レシピタグ  
-  has_many :recipe_tag_relations, dependent: :delete_all
-
+  # through option 中間テーブル通してで他テーブルと繋げる。
+  
   validates :name, presence: true, uniqueness: { case_sensitive:  true }
   
   SELECT_TAG = [
