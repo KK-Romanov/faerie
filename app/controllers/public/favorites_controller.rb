@@ -49,3 +49,4 @@ end
 #   end
 # end
 # # fovorite.present?を挟んでいるのは、２度押しのエラーを回避するためです。
+

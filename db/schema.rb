@@ -131,6 +131,7 @@ ActiveRecord::Schema.define(version: 2023_06_17_041611) do
     t.string "name"
     t.text "introduction"
     t.integer "user_id"
+    t.boolean "is_deleted", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_users_on_email", unique: true

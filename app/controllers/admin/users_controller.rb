@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController
   def index
-     @user = User.all
+     @users = User.all
   end
 
   def show
@@ -22,6 +22,6 @@ class Admin::UsersController < ApplicationController
   
    private
     def user_params
-        params.require(:user).permit(:name, :email, :is_delete) 
+        params.require(:user).permit(:name, :email, :is_deleted) 
     end
 end

@@ -22,7 +22,7 @@
             </tr>
             <tr>   
            <th><b>会員ステータス</b></th>
-             <td><% if @ser.is_deleted? %>
+             <td><% if @user.is_deleted? %>
              <p class="text-danger"><span>退会</span></p>
                <% else %>
             <p class="text-success"><span>有効</span></p>

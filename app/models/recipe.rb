@@ -51,7 +51,7 @@ class Recipe < ApplicationRecord
     errors.add(:base, "作り方は1つ以上登録してください。") if self.steps.blank?
   end
 
-
+# double処理機能
 def save_tags(saverecipe_tags) #= [b,c]
     current_tags = self.tags.pluck(:name) unless self.tags.nil? #=[a,b]
     old_tags = current_tags - saverecipe_tags
@@ -69,6 +69,7 @@ def save_tags(saverecipe_tags) #= [b,c]
       self.tags << recipe_tag  # << = save 
     end
 end
+# self機能
 # self 呼び出し元探す　  これを指している＝＞recipe.save_tags(tag_names + checked_tag_names)
 # = self = recipe
 # -----------------

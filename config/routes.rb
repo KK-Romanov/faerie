@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'review/createdestroy'
+#   get 'review/createdestroy'
   # Admin side
   devise_for :admin,controllers: {
   sessions: "admin/sessions"
@@ -8,8 +8,8 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users, only: [:index, :show, :edit, :update]
     resources :sessions, only: [:new, :create, :destroy] 
-    # resources :recipes, only: [:show, :update]
-    # resources :comments, only: [:show, :update]
+    resources :recipe, only: [:index, :show, :edit, :update, :destroy]
+    resources :comment, only: [:index, :show, :edit, :update, :destroy]
     # resources :genres, only: [:index, :create, :edit, :update]
 
   end

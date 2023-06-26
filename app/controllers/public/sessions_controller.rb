@@ -3,7 +3,7 @@
 class Public::SessionsController < Devise::SessionsController
   before_action :configure_sign_in_params, only: [:create]
   # before_action :ensure_normal_user, only: %i[update destroy]
-  # before_action :user_state, only: [:create]
+  before_action :user_state, only: [:create]
   # def ensure_normal_user
   #   if resource.email == 'guest@example.com'
   #     redirect_to root_path, alert: 'ゲストユーザーは更新・削除できません。'
@@ -43,15 +43,21 @@ class Public::SessionsController < Devise::SessionsController
     devise_parameter_sanitizer.permit(:sign_in, keys: [:email])
   end
   
-  # def user_state
+  
+  def user_state
   # def reject_inactive_user!
     # if @customer
-    # @user = User.find_by(email: params[:user][:email])
-    # return if !@user
-    # if @user.is_deleted?
-    #     redirect_to new_user_registration_path
-    # end
+    @user = User.find_by(email: params[:user][:email])
+     return if !@user
+     if @user.is_deleted?
+        redirect_to new_user_registration_path
+     end
      
+     unless @user.valid_password?(params[:user][:password])
+         
+         redirect_to new_user_session_path
+     end
+  end
     # unless @user.valid_password?(params[:user][:password])
          
     #     redirect_to new_user_session_path

@@ -1,4 +1,7 @@
 class Public::RecipesController < ApplicationController
+   before_action :authenticate_user!, only: [:new, :edit, :create, :update, :destroy]
+   before_action :set_recipe, only: [:show, :edit, :update, :destroy]
+   before_action :set_q, only: [:index, :search]
   
   def new
      @recipe = Recipe.new  
@@ -87,8 +90,31 @@ class Public::RecipesController < ApplicationController
     redirect_to recipes_path
     end
   end
+   
+   def search
+    if user_signed_in?
+      @recipes = @q.result(distinct: true).includes([:favorites]).page(params[:page]).per(6)
+    else
+      @recipes = @q.result(distinct: true).includes([:user]).page(params[:page]).per(6)
+    end
+      @search = params[:q][:title_or_ingredients_content_cont]
+   end
   
+   def tag_search
+      @tag = Tag.find(params[:tag_id])
+      @recipes = @tag.recipes.includes([:user], [:favorites])
+   end
+   
   private
+  
+    def set_recipe
+      @recipe = Recipe.find(params[:id])
+    end
+
+    def set_q
+      @q = Recipe.ransack(params[:q])
+    end
+  
   def recipe_params
       params.require(:recipe).permit(:image,:title,:description,:review,:steps,:ingredients,
         # :remove_image,
