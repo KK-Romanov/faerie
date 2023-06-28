@@ -25,10 +25,13 @@ class Public::RecipesController < ApplicationController
   end
 
    def index
+    @q = Recipe.ransack(params[:q])
+    @recipes = @q.result(distinct: true)
     # @title = "レシピ一覧"
-    @recipes = Recipe.all
+    #@recipes = Recipe.all
     # params[:tag_id].present? ? Tag.find(params[:tag_id]).recipes : Recipe
-     @recipes = params[:tag_ids].present? ? Tag.find(params[:tag_ids]).recipes : Recipe.all
+    #@recipes = params[:tag_ids].present? ? Tag.find(params[:tag_ids]).recipes : Recipe.all
+    @recipes = Tag.find(params[:tag_ids]).recipes if params[:tag_ids].present?
     if user_signed_in?
       @recipes = @recipes.includes([:user], [:favorites]).page(params[:page]).per(6)
     else
@@ -119,7 +122,7 @@ class Public::RecipesController < ApplicationController
       params.require(:recipe).permit(:image,:title,:description,:review,:steps,:ingredients,
         # :remove_image,
         # :image_cache,
-        # :keyword,
+        :keyword,
         # tag_ids: [],
         # tag_names: [],
         ingredients_attributes: [:id, :content, :quantity, :_destroy],

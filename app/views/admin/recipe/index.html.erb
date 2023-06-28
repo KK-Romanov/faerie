@@ -1,2 +1,38 @@
-<h1>Admin::Recipe#index</h1>
-<p>Find me in app/views/admin/recipe/index.html.erb</p>
+ <div class = "container mt-5">
+    
+      <h1>投稿一覧</h1>
+    
+        
+        
+<table class = "table">
+    <thead>
+      <tr>
+        <th scope = "col">会員ID</th>
+        <th scope = "col">会員名</th>
+        <th scope = "col">イメージ画像</th>
+        <th scope = "col">投稿内容</th>
+        <th scope = "col">投稿日時</th>
+
+      </tr>
+    </thead>
+      <tbody>         
+      <% @recipes.each do |recipe|%>
+      <tr>
+      <td><%= recipe.user_id %></td>
+      <td><%= recipe.user.name %></td>
+      <td>
+          <!--<td><#%recipe.image if recipe.image.attached? %>-->
+       <% if recipe.image.attached? %>
+         <%= image_tag recipe.image, size: "80x80" %>
+       <% else %>
+         <%= image_tag 'no-image1', size: "80x80" %>
+       <% end %>
+       </td>
+      <td><%= recipe.title %></td>
+      <td> <%= recipe.created_at.strftime('%Y/%m/%d') %></td>
+       <% end %>
+      <!--<#% recipe.tags.each do |tag| %>-->
+      <!--  <#%= tag.name %>-->
+      <!-- <#% end %>-->
+      </tr>
+    </div>

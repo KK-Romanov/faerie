@@ -10,9 +10,9 @@
       %>
     <% end %>
     <!--絞り込み検索-->
-      <!--<#%= search_form_for @q, url: recipes_search_path, class:"search_form" do |f| %>-->
-      <!--<#%= f.search_field :title_or_ingredients_content_cont, placeholder: "レシピ名・食材名で検索" %>-->
-      <!--<#% end %>-->
+      <%= search_form_for @q, url: recipes_path, class:"search_form" do |f| %>
+      <%= f.search_field :title_or_ingredients_content_cont, placeholder: "レシピ名・食材名で検索" %>
+      <% end %>
       <!--<#%= render 'shared/recipe_search' %>-->
 　　<!--絞り込み検索-->
 

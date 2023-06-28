@@ -60,10 +60,10 @@
             　     <li>
                     <%= link_to admin_users_path, class: "text-white navbar-brand" do %>会員一覧
                       <%end %>
-                      <!--  <#%= link_to  top_path, class: "text-white navbar-brand" do %>注文履歴一覧-->
-                      <!--<#%end %>-->
-                      <!--  <#%= link_to  admin_genres_path, class: "text-white navbar-brand" do %>ジャンル一覧-->
-                      <!--<#%end %>-->
+                         <%= link_to  admin_recipe_index_path, class: "text-white navbar-brand" do %>投稿一覧
+                        <%end %>
+                         <%= link_to  admin_comment_index_path, class: "text-white navbar-brand" do %>コメント一覧
+                      <%end %>
                      <%= link_to destroy_admin_session_path, method: :delete, class: "text-white navbar-brand" do %>
                       <i class=" fas fa-sign-out-alt"></i>ログアウト
             　         <% end %>
@@ -75,7 +75,7 @@
             <% else %>
              <li>
                <%= link_to about_path,  class: "text-white navbar-brand" do %>  
-                 <i class="fas fa-link"></i>What about me
+                 <i class="fas fa-link"></i>What about us
              </li>
                 <% end %>
                 <!--<li><#%= link_to users_guest_sign_in_path, method: :post ,class: "text-white navbar-brand" do  %>-->

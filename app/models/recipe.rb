@@ -75,4 +75,11 @@ end
 # -----------------
 # def self.method
 # end  /(ruby self) javaにもある。
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["description", "id",  "title",  "user_id"]
+  end
+  def self.ransackable_associations(auth_object = nil)
+   ["ingredients"]
+  end
 end
