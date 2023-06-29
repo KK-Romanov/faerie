@@ -52,9 +52,9 @@ scope module: :public do
      get 'recipes/tag/:name', to: "recipes#tag_search"
      get 'recipes/search', to: 'recipes#search'
     
-#   devise_scope :public do
-#     post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
-#   end
+  devise_scope :user do
+    post 'guest_sign_in', to: 'sessions#guest_sign_in'
+  end
   #users
     # get 'users/index'
     # get 'users/show'
