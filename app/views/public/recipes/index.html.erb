@@ -3,7 +3,7 @@
       <%= select_tag :tag_ids,
                       options_from_collection_for_select(Tag.all, :id, :name, params[:tag_ids]),
                       {
-                        prompt: 'タグで絞り込み',
+                        prompt: 'タグで絞り込み検索',
                         class: 'form-control recipes__select',
                         onchange: 'submit(this.form);'
                       } 
@@ -11,7 +11,7 @@
     <% end %>
     <!--絞り込み検索-->
       <%= search_form_for @q, url: recipes_path, class:"search_form" do |f| %>
-      <%= f.search_field :title_or_ingredients_content_cont, placeholder: "レシピ名・食材名で検索" %>
+      <%= f.search_field :title_or_ingredients_content_cont, placeholder: "レシピ名・食材名で検索", :size => "123*123" %>
       <% end %>
       <!--<#%= render 'shared/recipe_search' %>-->
 　　<!--絞り込み検索-->

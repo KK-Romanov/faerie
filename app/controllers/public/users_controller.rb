@@ -13,6 +13,7 @@ class Public::UsersController < ApplicationController
     @user = User.find(params[:id])
       @recipe = @user.recipes 
        @current_user = current_user
+       @favorites = Favorite.where(user_id: current_user.id)
   end
 
   def edit
