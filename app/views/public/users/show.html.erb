@@ -1,7 +1,7 @@
 <div class="cover-user-show">
 <div class = "container mt-5">
     <div class="row justify-content-center">
-     <h1>マイページ</h1>
+     <h1>My page</h1>
      </div>
       <p style="text-align: right">
         <%= link_to "登録情報を編集する", information_edit_path(current_user.id), class: "btn btn-success" %>
@@ -30,6 +30,8 @@
           <caption><b>ブックマーク一覧</b></caption><br>
         </div>
         <hr class="m-2" />
+        <b>いいねしたレシピがこちらに表示されます。</b>
+        <br>
      <table>
           <tbody>
             <% @favorites.each do |favorite| %>

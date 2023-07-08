@@ -1,71 +1,76 @@
 <div class = "container mt-5">
-<main>
-     <h1>レシピ詳細</h1>
-  <section class="description">
-    <div class="description__inner">
-      <div class="description__img-field">
-        <div class="description__img">
-
-      <%= image_tag @recipe.get_image, size: "400x400" %>
-      </div>
-      </div>
-      <div class="description__texts">
-        <div class="description__title">
-        <% if @recipe.favorited_by?(current_user) %>
-            <p>
-              <%= link_to  recipe_favorites_path(@recipe.id),method: :delete do %>
-                ♥<%= @recipe.favorites.count %> いいね
+  <div class = "row">
+    <div class = "col-md-6">
+      <main>
+         <h1>レシピの詳細</h1>
+      <section class="description">
+        <div class="description__inner">
+          <div class="description__img-field">
+            <div class="description__img">
+    
+          <%= image_tag @recipe.get_image, size: "400x400" %>
+          </div>
+          </div>
+          <div class="description__texts">
+            <div class="description__title">
+            <% if @recipe.favorited_by?(current_user) %>
+                <p>
+                  <%= link_to  recipe_favorites_path(@recipe.id),method: :delete do %>
+                    ♥<%= @recipe.favorites.count %> いいね
+                  <% end %>
+                </p>
+                <% else %>
+                <p>
+                  <%= link_to  recipe_favorites_path(@recipe.id),method: :post do %>
+                    ♡<%= @recipe.favorites.count %> いいね
+                  <% end %>
+                </p>
               <% end %>
-            </p>
-            <% else %>
-            <p>
-              <%= link_to  recipe_favorites_path(@recipe.id),method: :post do %>
-                ♡<%= @recipe.favorites.count %> いいね
-              <% end %>
-            </p>
-          <% end %>
-          
-        総合評価：<div id="review"></div>
-        <%#= f.hidden_field :review, id: :review %>
-        <script>
-          $('#review').empty(); // Turbolinksで星が増殖する現象を解消
-          $('#review').raty({
-              size     : 36,
-              starOff: '<%= asset_path('star-off.png') %>',
-              starOn: '<%= asset_path('star-on.png') %>',
-              starHalf: '<%= asset_path('star-half.png') %>',
-              // 登録するモデル名とカラム名を記述
-              //  送信値として採用される
-              half: true,
-              readOnly: true, // # 読み取り専用
-              score: <%= @recipe.review %>, // # 星評価の表示
-          });
-        </script>
-          <%= @recipe.title %>
-          <div class="description__detail">
-            <strong>
-            レシピの説明
-            </strong>
-            <%= @recipe.description %>
+              
+            総合評価：<div id="review"></div>
+            <%#= f.hidden_field :review, id: :review %>
+            <script>
+              $('#review').empty(); // Turbolinksで星が増殖する現象を解消
+              $('#review').raty({
+                  size     : 36,
+                  starOff: '<%= asset_path('star-off.png') %>',
+                  starOn: '<%= asset_path('star-on.png') %>',
+                  starHalf: '<%= asset_path('star-half.png') %>',
+                  // 登録するモデル名とカラム名を記述
+                  //  送信値として採用される
+                  half: true,
+                  readOnly: true, // # 読み取り専用
+                  score: <%= @recipe.review %>, // # 星評価の表示
+              });
+            </script>
+              <strong>
+                <%= @recipe.title %>
+              </strong>
+              </div>
+              <div class="description__detail">
+                <strong>
+                レシピの説明
+                </strong>
+                <%= @recipe.description %>
+              </div>
           </div>
         </div>
-        <div id="recipe_<%= @recipe.id %>">
-          <%= render partial: "favorite", locals: { recipe: @recipe } %>
-        </div>
-
-
-        <section class="ingredient">
-          <div class="cooking-title"><b>材料</b></div>
-          <% @recipe.ingredients.each do |ingredient| %>
-            <div class="ingredient__ul">
-              <div><%= ingredient.content %></div>
-              <div><%= ingredient.quantity %></div>
-            </div>
-          <% end %>
-        </section>
       </div>
-    </div>
-  </section>
+            <div id="recipe_<%= @recipe.id %>">
+              <%= render partial: "favorite", locals: { recipe: @recipe } %>
+            </div>
+    
+    
+            <section class="ingredient">
+              <div class="cooking-title"><b>材料</b></div>
+              <% @recipe.ingredients.each do |ingredient| %>
+                <div class="ingredient__ul">
+                  <div><%= ingredient.content %></div>
+                  <div><%= ingredient.quantity %></div>
+                </div>
+              <% end %>
+            </section>
+      </section>
 
   <section class="step">
     <div class="cooking-title"><b>作り方</b></div>
@@ -87,7 +92,7 @@
   </section>
 
   <section class="tag">
-    <div class="cooking-title">関連タグ</div>
+    <div class="cooking-title"><b>関連タグ</b></div>
     <div class="tag__container">
       <% if @recipe.tags.empty? %>
         <p class="tag__none">関連タグが設定されていません</p>
@@ -104,7 +109,7 @@
   <!--<#%= render 'shared/recipe_comment', comments: @comments %>-->
 </main>
         <div class="recipeuser">
-          <div class="cooking-title">投稿ユーザー</div>
+          <div class="cooking-title"><b>投稿ユーザー</b></div>
           <%= @recipe.user.name%>
           <div class="recipeuser__inner">
             <div class="recipeuser__img">
@@ -113,9 +118,9 @@
             <!--<#%= link_to @recipe.user.name, user_path(id: @recipe.user_id), class:"recipeuser__name" %>-->
           </div>
         </div>
-        <p>投稿日：<%= @recipe.created_at.strftime('%Y/%m/%d') %></p>
+        <p><b>投稿日：</b><%= @recipe.created_at.strftime('%Y/%m/%d') %></p>
 
-
+<!--ここからがコメント機能-->
 <div>
   <p>コメント件数：<%= @recipe.comments.count %></p>
   <% @recipe.comments.each do |comment| %>
@@ -128,9 +133,9 @@
   <%= form_with model: @comments, url: recipe_comments_path(@recipe) , method: :post do |f| %>
     <%= f.text_area :content, rows: '5', placeholder: "コメントをここに" %>
     <%= f.hidden_field :recipe_id, value: @recipe.id %>
-    <%= f.submit "コメント送信する" %>
+    <%= f.submit "コメントを投稿する" %>
   <% end %>
-
+<!--ここまでがコメント機能-->
 
 
 </div>
