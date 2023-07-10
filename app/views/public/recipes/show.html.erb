@@ -1,18 +1,19 @@
 <div class = "container mt-5">
+         <h1>レシピの詳細</h1>
   <div class = "row">
     <div class = "col-md-6">
       <main>
-         <h1>レシピの詳細</h1>
       <section class="description">
-        <div class="description__inner">
-          <div class="description__img-field">
-            <div class="description__img">
+        <!--<div class="description__inner">-->
+        <!--  <div class="description__img-field">-->
+        <!--    <div class="description__img">-->
     
-          <%= image_tag @recipe.get_image, size: "400x400" %>
-          </div>
-          </div>
-          <div class="description__texts">
-            <div class="description__title">
+          <%= image_tag @recipe.get_image, size: "350x350" %>
+          <!--<div class="description__texts">-->
+          <!--  <div class="description__title">-->
+            <div id="recipe_<%= @recipe.id %>">
+               <%= render partial: "favorite", locals: { recipe: @recipe } %>
+            </div>
             <% if @recipe.favorited_by?(current_user) %>
                 <p>
                   <%= link_to  recipe_favorites_path(@recipe.id),method: :delete do %>
@@ -26,7 +27,23 @@
                   <% end %>
                 </p>
               <% end %>
+                <div class="recipeuser">
+                  <div class="cooking-title"><b>投稿ユーザー</b></div>
+                    <%= @recipe.user.name%>
+                    <div class="recipeuser__inner">
+                      <div class="recipeuser__img">
+                        <!--<#%= link_to image_tag(@recipe.user.avatar.url), user_path(id: @recipe.user_id) %>-->
+                    </div>
+                    <!--<#%= link_to @recipe.user.name, user_path(id: @recipe.user_id), class:"recipeuser__name" %>-->
+                  </div>
+                </div>
+              <p><b>投稿日：</b><%= @recipe.created_at.strftime('%Y/%m/%d') %></p>
+          </div>
               
+            <div class = "col-md-6">
+                 <strong>
+                  “<%= @recipe.title %>”
+                 </strong><br>
             総合評価：<div id="review"></div>
             <%#= f.hidden_field :review, id: :review %>
             <script>
@@ -43,83 +60,81 @@
                   score: <%= @recipe.review %>, // # 星評価の表示
               });
             </script>
-              <strong>
-                <%= @recipe.title %>
-              </strong>
-              </div>
+            <p>
               <div class="description__detail">
-                <strong>
-                レシピの説明
-                </strong>
-                <%= @recipe.description %>
-              </div>
-          </div>
-        </div>
-      </div>
-            <div id="recipe_<%= @recipe.id %>">
-              <%= render partial: "favorite", locals: { recipe: @recipe } %>
-            </div>
-    
-    
-            <section class="ingredient">
-              <div class="cooking-title"><b>材料</b></div>
-              <% @recipe.ingredients.each do |ingredient| %>
-                <div class="ingredient__ul">
-                  <div><%= ingredient.content %></div>
-                  <div><%= ingredient.quantity %></div>
-                </div>
-              <% end %>
+                  <strong>
+                   レシピの説明
+                  </strong>
+                 <span><%= @recipe.description %></span>
+               </div>
+               <p>
+              <table class = "table">
+                <section class="ingredient">
+                      <tr>
+                        <th><div class="cooking-title"><b>材料</b></div></th>
+                          <th><div class="cooking-title"><b>分量</b></div></th>   
+                            <% @recipe.ingredients.each do |ingredient| %>
+                             <div class="ingredient__ul">
+                              <tr>
+                               <td><div><%= ingredient.content %></div></td>
+                              <td><div><%= ingredient.quantity %></div></td>
+                              </tr>
+                            </div>
+                         </tr>
+                      <% end %>
+                     <tr>
+                       <th>
+                         <hr class="m-2" />
+                           <div class="cooking-title"><b>作り方</b></div>
+                        </th>
+                      </tr>
+                        <% @recipe.steps.each do |step| %>
+                          <div class="step__item">
+                           <div class="step__inner">
+                             <div class="step__content">
+                              <p class="step__number"></p>
+                               <p class="step__description">
+                                 <tr>
+                                  <td>★<%= step.direction %></p>
+                        　          <% if step.image? %></td>
+                                   <div class="step__img">
+                                   <%= image_tag step.image.url %>
+                                </div>
+                                </tr>
+                               </div>
+                             <% end %>
+                            </div>
+                          </div>
+                       <% end %>
+                  </section>
+                </table>
             </section>
-      </section>
-
-  <section class="step">
-    <div class="cooking-title"><b>作り方</b></div>
-    <% @recipe.steps.each do |step| %>
-      <div class="step__item">
-        <div class="step__inner">
-          <div class="step__content">
-            <p class="step__number"></p>
-            <p class="step__description"><%= step.direction %></p>
+        </section>
+          <!--ここからタグ開始-->
+                <section class="tag">
+                  <hr class="m-2" />
+                  <div class="cooking-title"><b>関連タグ</b></div>
+                    <div class="tag__container">
+                       <% if @recipe.tags.empty? %>
+                       <p class="tag__none">関連タグが設定されていません</p>
+                        <% else %>
+                         <% @recipe.tags.each do |tag| %>
+                         <!--  <#%= render_with_tags(tag.name, tag.id) %>-->
+                          <!--<#% end %>-->
+                           <!--<#% @recipe.tags.each do |tag| %>-->
+                         <%= tag.name %>
+                        <% end %>
+                        <hr class="m-2" />
+                    <% end %>
+                  </div>
+                </section>
+<!--タグがここまで-->
+              </div>
+　          </div>
           </div>
-          <% if step.image? %>
-            <div class="step__img">
-              <%= image_tag step.image.url %>
-            </div>
-          <% end %>
-        </div>
-      </div>
-    <% end %>
-  </section>
-
-  <section class="tag">
-    <div class="cooking-title"><b>関連タグ</b></div>
-    <div class="tag__container">
-      <% if @recipe.tags.empty? %>
-        <p class="tag__none">関連タグが設定されていません</p>
-      <% else %>
-        <% @recipe.tags.each do |tag| %>
-        <!--  <#%= render_with_tags(tag.name, tag.id) %>-->
-        <!--<#% end %>-->
-        <!--<#% @recipe.tags.each do |tag| %>-->
-         <%= tag.name %>
-          <% end %>
-      <% end %>
-    </div>
-  </section>
-  <!--<#%= render 'shared/recipe_comment', comments: @comments %>-->
-</main>
-        <div class="recipeuser">
-          <div class="cooking-title"><b>投稿ユーザー</b></div>
-          <%= @recipe.user.name%>
-          <div class="recipeuser__inner">
-            <div class="recipeuser__img">
-              <!--<#%= link_to image_tag(@recipe.user.avatar.url), user_path(id: @recipe.user_id) %>-->
-            </div>
-            <!--<#%= link_to @recipe.user.name, user_path(id: @recipe.user_id), class:"recipeuser__name" %>-->
           </div>
-        </div>
-        <p><b>投稿日：</b><%= @recipe.created_at.strftime('%Y/%m/%d') %></p>
-
+      </main>
+      
 <!--ここからがコメント機能-->
 <div>
   <p>コメント件数：<%= @recipe.comments.count %></p>
@@ -144,4 +159,3 @@
             <% if user_signed_in? && @recipe.user == current_user %>
               <%= link_to 'レシピ編集', edit_recipe_path, class:"btn recipe-edit-btn" %>
             <% end %>
-</div>

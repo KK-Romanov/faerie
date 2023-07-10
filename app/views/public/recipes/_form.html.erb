@@ -1,9 +1,9 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6">
-<!--<#% if @user.email == 'guest@example.com'%>-->
-<!--      <p>投稿するには会員登録が必要です。</p>-->
-<!--    <#% else %>-->
+          <!--<#% if @user.email == 'guest@example.com'%>-->
+          <!--      <p>投稿するには会員登録が必要です。</p>-->
+          <!--    <#% else %>-->
         <%= form_with model: @recipe, method: :post do |f| %>
         　<h4>イメージ写真</h4>
           <%= f.file_field :image, accept: "image/jpeg,image/gif,image/png", class: "image" %>
@@ -14,31 +14,12 @@
           <h4>本文</h4>
           <%= f.text_area :description, placeholder: "レシピの説明(140字以内)",size: 45 %>
     </div>
-  
-	   <div class="col-md-6">
-       <h4>材料</h4>
-       <section class="ingredient"> 
-          <%= f.fields_for :ingredients do |ingredient| %>
-            <%= render "ingredient_fields", f: ingredient %>
-          <% end %>
-          <%= link_to_add_association "材料の追加", f, :ingredients %>
-        </section>
-        <h4>作り方</h4>
-        <section class="step">
-          <div class="field">
-            <%= f.fields_for :steps do |step| %>
-              <%= render "step_fields", f: step %>
-            <% end %>
-            <%= link_to_add_association "作り方の追加", f, :steps %>
-          </div>
-        </section>
-     </div>
+    <!--<div class="col-md-6">-->
    <!--<div class="row">-->
-     <div class="col-md-8">
-        <h4><%= f.label :review, "総合評価：" %></h4>
-        <div id="review"></div>
-        <%#= f.hidden_field :review, id: :review %>
       
+        <h4><%= f.label :review, "総合評価：" %></h4>
+        <%#= f.hidden_field :review, id: :review %>
+        <div id="review"></div>
         <script>
           $('#review').empty(); // Turbolinksで星が増殖する現象を解消
           $('#review').raty({
@@ -52,7 +33,7 @@
               half: true,
           });
         </script>
-        
+     <!--</div>-->
           <div class="form-group">
           <h4><span>タグ</span></h4>
           <%= f.collection_check_boxes(:tag_ids, @tags, :id, :name) do |tag| %>
@@ -64,16 +45,32 @@
             </div>
           <% end %>
         </div>
-      
-      
       <%#= form_with model:@recipe, local: true do |f| %>
       <!--※タグの部分のみ抜粋-->
         <%= f.text_field :tag_names, class: "form-control",
           placeholder: "その他のタグをつける。複数つけるには ' , ' で区切ってください。" %>
-  </div>
+    </div>
+
+         <h4>材料</h4>
+           <section class="ingredient"> 
+                <%= f.fields_for :ingredients do |ingredient| %>
+                  <%= render "ingredient_fields", f: ingredient %>
+                <% end %>
+                <%= link_to_add_association "材料の追加", f, :ingredients %>
+              </section>
+              <h4>作り方</h4>
+              <section class="step">
+                <div class="field">
+                  <%= f.fields_for :steps do |step| %>
+                    <%= render "step_fields", f: step %>
+                  <% end %>
+                  <%= link_to_add_association "作り方の追加", f, :steps %>
+                </div>
+            </section>
+
  </div><br>
         <h4 style="text-align: center">
-        <%= f.submit '投稿' , class:'btn btn-sm btn-success' %>
+        <%= f.submit '投稿',class:'btn btn-sm btn-success'  %>
         </h4>
       <% end %>
 <!--<#% end %>-->

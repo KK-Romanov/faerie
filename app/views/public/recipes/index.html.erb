@@ -17,8 +17,9 @@
 　　<!--絞り込み検索-->
 
 <section class="list">
-  <div class="cooking-title"><h4>レシピ一覧</h4></div>
- <% @recipes.each do |recipe|%>
+    <div class="d-flex justify-content-between">
+     <div class="cooking-title"><h4>レシピ一覧</h4></div>
+       <% @recipes.each do |recipe|%>
     <div>
      <%= link_to recipe_path(recipe.id) do %>
       <!--<#%= image_tag recipe.image if recipe.image.attached? %>-->
@@ -32,24 +33,25 @@
       <% recipe.tags.each do |tag| %>
         <%= tag.name %>
        <% end %>
-    </div>
-    <br>
-     総合評価:<div id="review-<%= recipe.id %>"></div>
-      <script>
-        $('#review-<%= recipe.id %>').empty(); // Turbolinksで星が増殖する現象を解消
-        $('#review-<%= recipe.id %>').raty({
-            size     : 36,
-            starOff: '<%= asset_path('star-off.png') %>',
-            starOn: '<%= asset_path('star-on.png') %>',
-            starHalf: '<%= asset_path('star-half.png') %>',
-            // 登録するモデル名とカラム名を記述
-            //  送信値として採用される
-            half: true,
-            readOnly: true, // # 読み取り専用
-            score: '<%= recipe.review %>' // # 星評価の表示
-        });
-      </script>
-    <% end %>
+      <br>
+           総合評価:<div id="review-<%= recipe.id %>"></div>
+        <script>
+            $('#review-<%= recipe.id %>').empty(); // Turbolinksで星が増殖する現象を解消
+            $('#review-<%= recipe.id %>').raty({
+                size     : 36,
+                starOff: '<%= asset_path('star-off.png') %>',
+                starOn: '<%= asset_path('star-on.png') %>',
+                starHalf: '<%= asset_path('star-half.png') %>',
+                // 登録するモデル名とカラム名を記述
+                //  送信値として採用される
+                half: true,
+                readOnly: true, // # 読み取り専用
+                score: '<%= recipe.review %>' // # 星評価の表示
+            });
+        </script>
+      </div>
+     <% end %>
+   </div>
  </section>
 
   <!--<#%= paginate @recipe %>-->
