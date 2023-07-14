@@ -30,7 +30,16 @@
           <caption><b>ブックマーク一覧</b></caption><br>
         </div>
         <hr class="m-2" />
-        <b>いいねしたレシピがこちらに表示されます。</b>
+           <% if @favorites.empty? %>
+      <div style="height: 200px;"></div>
+      <div class="text-center">
+      <h5> <b>いいねしたレシピがこちらに表示されます。</b></h5>
+          <% end %>
+          <p style="text-align: right">
+          <%= link_to recipes_path, class: 'btn btn-primary' do %>
+          レシピ一覧へ
+          <% end %>
+          </p>
         <br>
      <table>
           <tbody>

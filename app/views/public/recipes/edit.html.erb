@@ -57,13 +57,21 @@
     placeholder: "タグをつける。複数つけるには','で区切ってください。" %>
    <!--Tag E-->
    <span>
-     <%= f.submit '投稿' %>
+     <%= f.submit '編集を保存',class: "btn btn-success" %>
     </span>
   </section>
      
   <% end %>
-<div class="cancel"><%= link_to '編集をやめる', @recipe, class:"btn cancel-btn"%></div>
+<button type="button" class="btn btn-warning">
+  <%= link_to recipe_path, class: "btn btn-link" do %>
+  編集をやめる
+<% end %>
+</button>
+     
 
-<div class="cancel"><%= link_to 'レシピを削除', @recipe, method: :delete,
-data: { confirm: "削除してよろしいですか？" }, class:"btn cancel-btn"%></div>
+<button type="button" class="btn btn-danger">
+<%= link_to 'レシピを削除', @recipe, method: :delete,
+data: { confirm: "削除してよろしいですか？" }, class: "btn btn-link" %>
+</button>
+</div>
 

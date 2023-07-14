@@ -36,6 +36,10 @@ class User < ApplicationRecord
       user.password_confirmation = user.password
     end
   end
+  
+  def guest?
+    email == 'guest@example.com'
+  end
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
 

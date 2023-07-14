@@ -1,28 +1,30 @@
 <div class="container">
-  <div class="row">
-    <div class="col-md-6">
-          <!--<#% if @user.email == 'guest@example.com'%>-->
-          <!--      <p>投稿するには会員登録が必要です。</p>-->
-          <!--    <#% else %>-->
-        <%= form_with model: @recipe, method: :post do |f| %>
-        　<h4>イメージ写真</h4>
+  
+  <%= form_with model: @recipe, method: :post do |f| %>
+    <div class="row">
+      <div class="col-md-6">
+          <h4>イメージ写真</h4>
           <%= f.file_field :image, accept: "image/jpeg,image/gif,image/png", class: "image" %>
-          
+              
           <h4>レシピについて</h4>
           <%= f.text_field :title,placeholder: "レシピ名(50文字以内)" ,size: 30 %>
-        	
+              
           <h4>本文</h4>
           <%= f.text_area :description, placeholder: "レシピの説明(140字以内)",size: 45 %>
-    </div>
-    <!--<div class="col-md-6">-->
-   <!--<div class="row">-->
-      
-        <h4><%= f.label :review, "総合評価：" %></h4>
-        <%#= f.hidden_field :review, id: :review %>
-        <div id="review"></div>
-        <script>
-          $('#review').empty(); // Turbolinksで星が増殖する現象を解消
-          $('#review').raty({
+          <%#= form_with model:@recipe, local: true do |f| %>
+          <!--※タグの部分のみ抜粋-->
+          <%= f.text_field :tag_names, class: "form-control",
+              placeholder: "その他のタグをつける。複数つけるには ' , ' で区切ってください。" %>
+          </div>
+          <div class="col-md-6">
+            <!--<div class="row">-->
+            
+            <h4><%= f.label :review, "総合評価：" %></h4>
+              <%#= f.hidden_field :review, id: :review %>
+            <div id="review"></div>
+            <script>
+              $('#review').empty(); // Turbolinksで星が増殖する現象を解消
+              $('#review').raty({
               size     : 36,
               starOff: '<%= asset_path('star-off.png') %>',
               starOn: '<%= asset_path('star-on.png') %>',
@@ -31,47 +33,49 @@
               //  送信値として採用される
               scoreName: 'recipe[review]',
               half: true,
-          });
-        </script>
-     <!--</div>-->
-          <div class="form-group">
-          <h4><span>タグ</span></h4>
-          <%= f.collection_check_boxes(:tag_ids, @tags, :id, :name) do |tag| %>
-            <div class="form-check">
-              <%= tag.label class: 'form-check-label' do %>
-                <%= tag.check_box class: 'form-check-input' %>
-                <%= tag.text %>
-              <% end %>
-            </div>
-          <% end %>
-        </div>
-      <%#= form_with model:@recipe, local: true do |f| %>
-      <!--※タグの部分のみ抜粋-->
-        <%= f.text_field :tag_names, class: "form-control",
-          placeholder: "その他のタグをつける。複数つけるには ' , ' で区切ってください。" %>
-    </div>
-
-         <h4>材料</h4>
-           <section class="ingredient"> 
-                <%= f.fields_for :ingredients do |ingredient| %>
-                  <%= render "ingredient_fields", f: ingredient %>
+              });
+            </script>
+            <!--</div>-->
+            <div class="form-group">
+              <h4><span>タグ</span></h4>
+              <%= f.collection_check_boxes(:tag_ids, @tags, :id, :name) do |tag| %>
+              <div class="form-check">
+                <%= tag.label class: 'form-check-label' do %>
+                  <%= tag.check_box class: 'form-check-input' %>
+                  <%= tag.text %>
                 <% end %>
-                <%= link_to_add_association "材料の追加", f, :ingredients %>
-              </section>
-              <h4>作り方</h4>
-              <section class="step">
-                <div class="field">
-                  <%= f.fields_for :steps do |step| %>
-                    <%= render "step_fields", f: step %>
-                  <% end %>
-                  <%= link_to_add_association "作り方の追加", f, :steps %>
-                </div>
-            </section>
-
- </div><br>
-        <h4 style="text-align: center">
-        <%= f.submit '投稿',class:'btn btn-sm btn-success'  %>
-        </h4>
-      <% end %>
-<!--<#% end %>-->
+              </div>
+            <% end %>
+          </div>
+      </div>
+    </div>
+    <div class= "row">
+      <div class= "col">
+        <h4>材料</h4>
+        <section class="ingredient"> 
+          <%= f.fields_for :ingredients do |ingredient| %>
+            <%= render "ingredient_fields", f: ingredient %>
+          <% end %>
+          <%= link_to_add_association "材料の追加", f, :ingredients %>
+        </section>
+     </div>
+     <div class= "col">
+      <h4>作り方</h4>
+      <section class="step">
+        <div class="field">
+          <%= f.fields_for :steps do |step| %>
+            <%= render "step_fields", f: step %>
+          <% end %>
+          <%= link_to_add_association "作り方の追加", f, :steps %>
+        </div>
+      </section>
+    </div>
+    </div>
+    <br>
+    <p style="text-align: center">
+      <button type="button" class="btn btn-success">
+      <%= f.submit '投稿',class:'btn btn-sm btn-success',size: "50x50"  %>
+      </button>
+    </p>
+  <% end %>
 </div>

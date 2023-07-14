@@ -14,12 +14,12 @@
       </tr>
     </thead>
       <tbody>         
-      <!--   <#% @recipe.comment.each do |comment| %>-->
-      <!--<tr>-->
-      <!--    <td><#%= comment.user_id %></td>-->
-      <!--    <td><#%= comment.user.name %></td>-->
-      <!--    <td><#%= comment.content %></td>-->
-      <!--     <td><#%= comment.created_at.strftime('%Y/%m/%d') %></td>-->
-      <!-- <#% end %>-->
+         <% @comments.each do |comment| %>
+      <tr>
+          <td><%= comment.user_id %></td>
+          <td><%= comment.user.name %></td>
+          <td><%= comment.content %></td>
+           <td><%= comment.created_at.strftime('%Y/%m/%d') %></td>
+       <% end %>
       
     </div>

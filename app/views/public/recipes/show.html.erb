@@ -127,35 +127,42 @@
                         <hr class="m-2" />
                     <% end %>
                   </div>
+            <% if user_signed_in? && @recipe.user == current_user %>
+              <%= link_to 'レシピ編集', edit_recipe_path, class: "btn btn-primary" %>
+            <% end %>
                 </section>
 <!--タグがここまで-->
               </div>
 　          </div>
-          </div>
-          </div>
       </main>
       
 <!--ここからがコメント機能-->
-<div>
+<div class= "row justify-content-lg-center">
+  <div class= "col col-lg-9">
   <p>コメント件数：<%= @recipe.comments.count %></p>
-  <% @recipe.comments.each do |comment| %>
+    <% @recipe.comments.each do |comment| %>
     <!--<p><#%= image_tag comment.user.get_profile_image(100,100) %></p>-->
-    <%= comment.user.name %>
-    <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.content %>
+      <%= comment.user.name %>
+      <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.content %>
   <% end %>
+  <div>
+<% if current_user.guest? %>
+          <p>コメント投稿するには会員登録が必要です。</p>
+          <%= link_to new_user_registration_path, class: "btn btn-primary" do %>
+          　新規登録する
+          　<% end %>
+        <% else %>
+    <%= form_with model: @comments, url: recipe_comments_path(@recipe) , method: :post do |f| %>
+      <%= f.text_area :content, rows: '5', placeholder: "コメントをここに",size: "80x3" %>
+      <%= f.hidden_field :recipe_id, value: @recipe.id %><br>
+      <%= f.submit "コメントを投稿する", class: "btn btn-success"%>
+   <% end %>
+  </div>
+ </div>
 </div>
-<div>
-  <%= form_with model: @comments, url: recipe_comments_path(@recipe) , method: :post do |f| %>
-    <%= f.text_area :content, rows: '5', placeholder: "コメントをここに" %>
-    <%= f.hidden_field :recipe_id, value: @recipe.id %>
-    <%= f.submit "コメントを投稿する" %>
-  <% end %>
+<% end %>
 <!--ここまでがコメント機能-->
-
-
 </div>
-  
+
+
 </section>
-            <% if user_signed_in? && @recipe.user == current_user %>
-              <%= link_to 'レシピ編集', edit_recipe_path, class:"btn recipe-edit-btn" %>
-            <% end %>

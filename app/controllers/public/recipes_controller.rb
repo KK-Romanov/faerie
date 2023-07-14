@@ -20,7 +20,7 @@ class Public::RecipesController < ApplicationController
     else
       @recipes = Recipe.all
       flash[:notice] = "error"
-      render :index
+      render :new
     end
   end
 
