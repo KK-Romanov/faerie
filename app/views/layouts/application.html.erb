@@ -47,6 +47,7 @@
                 <!-- <i class="fa-solid fa-user-secret"></i>ユーザー一覧-->
                 <!-- <"% end %>-->
                 <!--</li>-->
+        
                <li>
                 <%= link_to destroy_user_session_path, method: :delete, class: "text-white navbar-brand" do %>
                  <i class=" fas fa-sign-out-alt"></i>ログアウト
@@ -108,3 +109,4 @@
     <%= yield %>
   </body>
 </html>
+         

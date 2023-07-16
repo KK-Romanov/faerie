@@ -1,4 +1,3 @@
-  
   <header>
     <style>
       #intro {
@@ -16,7 +15,24 @@
       .navbar .nav-link {
         color: #fff !important;
       }
+       <% if user_signed_in? %>
+           <% if current_user.guest? %>
+              #intro {
+                background-image: url("https://mdbootstrap.com/img/new/standard/nature/023.jpg");
+                background-repeat: no-repeat;
+                background-size: cover;
+                height: 75vh;
+                
+              }
+                @media (min-width: 992px) {
+              #intro {
+                margin-top: -58.59px;
+              }
+            }
+        <% end %>
+     <% end %>
     </style>
+  
 
      <!--Background image -->
   
@@ -28,7 +44,9 @@
             <h1 class="mb-2"><h1>Welcome to féerie</h1>
              <h5 class="mb-4">Make yourlife enjoy more </h5>
               <% if user_signed_in? %>
-              
+                <% if current_user.guest? %>
+                I am guest.
+                <% end %>
                 <% else %>
               <!--head新規登録-->
                 <%= link_to new_user_registration_path do %>
@@ -90,7 +108,6 @@
      
   </main>
   <!--Main layout-->
-
   <!--Footer-->
 
     <!-- Copyright -->
@@ -101,3 +118,4 @@
     <!-- Copyright -->
   </footer>
   <!--Footer-->
+ 

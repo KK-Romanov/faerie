@@ -148,8 +148,8 @@
   <div>
 <% if current_user.guest? %>
           <p>コメント投稿するには会員登録が必要です。</p>
-          <%= link_to new_user_registration_path, class: "btn btn-primary" do %>
-          　新規登録する
+          <%= link_to recipes_path, class: "btn btn-primary" do %>
+          　前のページに戻る
           　<% end %>
         <% else %>
     <%= form_with model: @comments, url: recipe_comments_path(@recipe) , method: :post do |f| %>

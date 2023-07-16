@@ -57,6 +57,7 @@ class Public::RegistrationsController < Devise::RegistrationsController
   # end
    def after_sign_up_path_for(resource)
     super(resource)
+    # Super=親クラスの継承の意味
     my_page_path(current_user.id)
    end
 
