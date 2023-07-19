@@ -4,7 +4,7 @@ class Public::CommentsController < ApplicationController
     @comment = current_user.comments.new(comment_params)
     if @comment.save!
       if @comment.reply_comment.nil?
-        flash[:notice] = 'レシピへのコメントを投稿しました。'
+        flash[:success] = 'レシピへのコメントを投稿しました。'
       else
         flash[:notice] = 'コメントに返信しました。'
       end
@@ -23,7 +23,7 @@ class Public::CommentsController < ApplicationController
     comment = Comment.find_by(id: params[:id], recipe_id: params[:recipe_id]).destroy
     redirect_to comment.recipe
     if comment.reply_comment.nil?
-      flash[:notice] = 'コメントを削除しました。'
+      flash[:danger] = 'コメントを削除しました。'
     else
       flash[:notice] = '返信したコメントを削除しました。'
     end

@@ -13,7 +13,7 @@ class Public::RecipesController < ApplicationController
     recipe.user_id = current_user.id
     tag_names = params[:recipe][:tag_names].split(',')
     checked_tag_names = Tag.where(id: params[:recipe][:tag_ids]).pluck(:name)
-    if recipe.save!
+    if recipe.save
         recipe.save_tags(tag_names + checked_tag_names)
       flash[:notice] = "レシピを投稿しました。"
       redirect_to recipes_path
@@ -43,17 +43,17 @@ class Public::RecipesController < ApplicationController
     @recipe = Recipe.find(params[:id])
       # @title = "#{@recipe.title}"
     # @comments = Comment.includes([:user]).where(recipe_id: @recipe.id)
-    
     @comments = @recipe.comments  #投稿詳細に関連付けてあるコメントを全取得
+
     
     # @comment = current_user.comments.new  
     #投稿詳細画面でコメントの投稿を行うので、
     #formのパラメータ用にCommentオブジェクトを取得
     
     # if user_signed_in?
-    #   @comment = current_user.comments.new(flash[:comment])
+    #  @comment = current_user.comments.new(flash[:comment])
     #   @comment_reply = current_user.comments.new
-    # end
+    #  end
      # raty.js用のフォーム
     @review = Review.new
     # raty.jsの平均値
@@ -67,10 +67,10 @@ class Public::RecipesController < ApplicationController
         tag_list = params[:recipe][:tag_ids].split(',')
      if @recipe.update(recipe_params)
          @recipe.save_tags(tag_list)
-        flash[:notice] = "successfully"  
+        flash[:success] = "レシピを更新しました。"
         redirect_to recipe_path(@recipe.id)  
      else 
-        flash[:notice] = "error"  
+        flash.now[:alert] = "更新が失敗しました"  
         render :edit
      end
    end

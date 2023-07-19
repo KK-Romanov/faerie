@@ -43,7 +43,7 @@ scope module: :public do
    get "/about" => "homes#about", as: "about"
     # get 'recipes/tweet', to: "homes#tweet_index"
   resources :recipes, only: [:new, :index, :edit, :update, :destroy, :create, :show] do
-   resources :comments, only: [:destroy, :create]
+    resources :comments, only: [:destroy, :create]
     resource :favorites, only: [:destroy, :create]  
     resources :reviews, only: %w[create destroy]
    
