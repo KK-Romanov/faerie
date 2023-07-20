@@ -9,16 +9,17 @@ class Public::RecipesController < ApplicationController
   end
   
   def create
-    recipe = current_user.recipes.new(recipe_params)
-    recipe.user_id = current_user.id
+    @recipe = current_user.recipes.new(recipe_params)
+    @recipe.user_id = current_user.id
     tag_names = params[:recipe][:tag_names].split(',')
     checked_tag_names = Tag.where(id: params[:recipe][:tag_ids]).pluck(:name)
-    if recipe.save
-        recipe.save_tags(tag_names + checked_tag_names)
+    if @recipe.save
+        @recipe.save_tags(tag_names + checked_tag_names)
       flash[:notice] = "レシピを投稿しました。"
       redirect_to recipes_path
     else
-      @recipes = Recipe.all
+    #   @recipes = Recipe.all
+      @tags = Tag.where(name: Tag::SELECT_TAG)
       flash[:notice] = "error"
       render :new
     end
@@ -31,6 +32,8 @@ class Public::RecipesController < ApplicationController
     #@recipes = Recipe.all
     # params[:tag_id].present? ? Tag.find(params[:tag_id]).recipes : Recipe
     #@recipes = params[:tag_ids].present? ? Tag.find(params[:tag_ids]).recipes : Recipe.all
+    
+    # ransack 同時）タグ検索　調べる。
     @recipes = Tag.find(params[:tag_ids]).recipes if params[:tag_ids].present?
     if user_signed_in?
       @recipes = @recipes.includes([:user], [:favorites]).page(params[:page]).per(6)

@@ -4,7 +4,7 @@
       <!--Section: Content-->
       
       <section class="text-center">
-        <h4 class="mb-5"><strong>使用方法について</strong></h4>
+        <h4 class="mb-5"><strong>サイトの使用方法について</strong></h4>
 
         <div class="row">
           <div class="col-lg-4 col-md-12 mb-4">
@@ -16,12 +16,12 @@
                 </a>
               </div>
               <div class="card-body">
-                <h5 class="card-title">Card title</h5>
+                <h5 class="card-title">ゲストユーザーの方は</h5>
                 <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk of the
-                  card's content.
+                コメント閲覧や投稿するには新規登録が必要です。
+                <br>＃レシピ投稿は可能です。
                 </p>
-                <a href="#!" class="btn btn-primary">Button</a>
+                <%= link_to "新規登録する", new_user_registration_path, class: "btn btn-primary" %>
               </div>
             </div>
           </div>
@@ -35,12 +35,13 @@
                 </a>
               </div>
               <div class="card-body">
-                <h5 class="card-title">Card title</h5>
+                <h5 class="card-title">Welcome to féerie</h5>
                 <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk of the
-                  card's content.
+                  Make Life More Interesting .<br>
+                  "人生をより面白く"
+                  
                 </p>
-                <a href="#!" class="btn btn-primary">Button</a>
+                <%= link_to "ホームに戻る",root_path, class: "btn btn-primary" %>
               </div>
             </div>
           </div>
@@ -54,12 +55,12 @@
                 </a>
               </div>
               <div class="card-body">
-                <h5 class="card-title">Card title</h5>
+                <h5 class="card-title">会員登録済みの方は</h5>
                 <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk of the
-                  card's content.
+                    <br>
+                  こちらからもログインができます。
                 </p>
-                <a href="#!" class="btn btn-primary">Button</a>
+                <%= link_to "ログインする",new_user_session_path, class: "btn btn-primary" %>
               </div>
             </div>
           </div>
