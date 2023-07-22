@@ -1,5 +1,5 @@
-<div class="cover-user-show">
 <div class = "container mt-5">
+<div class="cover-user-show">
     <div class="row justify-content-center">
      <h1>My page</h1>
      </div>
@@ -25,6 +25,7 @@
             <!--</tr>-->
      </table>
        </div>
+       
         <hr class="m-2" />
         <div class="row justify-content-center">
           <caption><b>ブックマーク一覧</b></caption><br>
@@ -41,47 +42,52 @@
           <% end %>
           </p>
         <br>
-     <table>
-          <tbody>
-            <% @favorites.each do |favorite| %>
-              <tr>
-                  
-                <%= link_to recipe_path(favorite.recipe) do %>
-                   <% if favorite.recipe.image.attached? %>
-                     <%= image_tag favorite.recipe.image, size: "200x180" %>
-                   <% else %>
-                     <%= image_tag 'no-image1', size: "200x180" %>
-                   <% end %>
-              </tr>
-               <tr>
-                  <th>レシピ名</th>
-                        <td><%= favorite.recipe.title %></td>
-                </tr>
-                <tr>
-                  <th>投稿者</th>
-                       <td><%= favorite.recipe.user.name %></td>
-                <!--<td><#%= favorite.recipe. description %></td>-->
-                 <% end %>
-                </tr>        
-
-    <br>
-     総合評価:<div id="review-<%= favorite.recipe.id %>"></div>
-      <script>
-        $('#review-<%= favorite.recipe.id %>').empty(); // Turbolinksで星が増殖する現象を解消
-        $('#review-<%= favorite.recipe.id %>').raty({
-            size     : 36,
-            starOff: '<%= asset_path('star-off.png') %>',
-            starOn: '<%= asset_path('star-on.png') %>',
-            starHalf: '<%= asset_path('star-half.png') %>',
-            // 登録するモデル名とカラム名を記述
-            //  送信値として採用される
-            half: true,
-            readOnly: true, // # 読み取り専用
-            score: '<%= favorite.recipe.review %>' // # 星評価の表示
-        });
-      </script>
-          </tbody>
-    </table>
-    <% end %>
     </div>
+    <div class="row justify-content-center">
+        <div class="d-flex flex-wrap">
+        <div class= "col ">
+            <% @favorites.each do |favorite| %>
+               <!--<table class= "table" >-->
+                <tr>
+                   <th></th>
+                       <td>
+                          <%= link_to recipe_path(favorite.recipe.id) do %>
+                           <% if favorite.recipe.image.attached? %>
+                             <%= image_tag favorite.recipe.image, size: "160x160" %>
+                           <% else %>
+                             <%= image_tag 'no-image1', size: "160x160" %>
+                           <% end %>
+                     </td>
+                      <br>
+                        <td><%= favorite.recipe.title %></td>
+                     <br>
+                      <th>総合評価</th><br>
+                      <td>
+                          <div id="review-<%= favorite.recipe.id %>"></div>
+                          <script>
+                            $('#review-<%= favorite.recipe.id %>').empty(); // Turbolinksで星が増殖する現象を解消
+                            $('#review-<%= favorite.recipe.id %>').raty({
+                                size     : 36,
+                                starOff: '<%= asset_path('star-off.png') %>',
+                                starOn: '<%= asset_path('star-on.png') %>',
+                                starHalf: '<%= asset_path('star-half.png') %>',
+                                // 登録するモデル名とカラム名を記述
+                                //  送信値として採用される
+                                half: true,
+                                readOnly: true, // # 読み取り専用
+                                score: '<%= favorite.recipe.review %>' // # 星評価の表示
+                            });
+                          </script>
+                      </td>
+                     <br>
+                    <th>投稿者:</th>
+                        <td><%= favorite.recipe.user.name %></td>
+                   <% end %>
+                </tr>        
+              
+            </table>
+         </div>
+     <% end %>
+  </div>
+</div>    
   

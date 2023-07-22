@@ -17,8 +17,9 @@
 　　<!--絞り込み検索-->
 
 <section class="list">
-    <div class="d-flex ">
-       <div class="cooking-title"><h4>レシピ一覧</h4></div>
+    <div class="d-flex flex-wrap">
+       <div class="cooking-title">
+           <h4>レシピ一覧</h4></div>
        <% @recipes.each do |recipe|%>
     <div>
      <%= link_to recipe_path(recipe.id) do %>
