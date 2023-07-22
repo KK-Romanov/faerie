@@ -88,6 +88,8 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise-i18n (1.11.0)
+      devise (>= 4.9.0)
     dotenv (2.8.1)
     dotenv-rails (2.8.1)
       dotenv (= 2.8.1)
@@ -273,6 +275,7 @@ DEPENDENCIES
   capybara (>= 3.26)
   cocoon
   devise
+  devise-i18n
   dotenv-rails
   enum_help
   image_processing (~> 1.2)

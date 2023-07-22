@@ -61,6 +61,7 @@ gem 'kaminari','~> 1.2.1'
 gem 'pry-byebug'
 gem 'cocoon'
 gem 'ransack'
+gem 'devise-i18n'
 # ここからデプロイ本番準備　＝バンドル済み
 gem 'dotenv-rails'
 gem "net-smtp"
