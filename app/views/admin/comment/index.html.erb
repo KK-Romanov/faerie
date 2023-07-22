@@ -11,6 +11,7 @@
         <th scope = "col">会員名</th>
         <th scope = "col">コメント内容</th>
         <th scope = "col">投稿日時</th>
+        <th scope = "col"></th>
       </tr>
     </thead>
       <tbody>         
@@ -20,6 +21,7 @@
           <td><%= comment.user.name %></td>
           <td><%= comment.content %></td>
            <td><%= comment.created_at.strftime('%Y/%m/%d') %></td>
+           <td><%=link_to "削除", admin_comment_path(comment.id), method: :delete %></td>
        <% end %>
       
     </div>

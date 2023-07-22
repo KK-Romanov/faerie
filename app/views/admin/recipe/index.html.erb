@@ -12,6 +12,7 @@
         <th scope = "col">イメージ画像</th>
         <th scope = "col">投稿内容</th>
         <th scope = "col">投稿日時</th>
+        <th scope = "col"></th>
 
       </tr>
     </thead>
@@ -28,8 +29,12 @@
          <%= image_tag 'no-image1', size: "80x80" %>
        <% end %>
        </td>
-      <td><%= recipe.title %></td>
+      
+      <td><%= link_to  admin_recipe_path(recipe.id) do %>
+          <%= recipe.title %></td>
+       <% end %>
       <td> <%= recipe.created_at.strftime('%Y/%m/%d') %></td>
+      <td><%=link_to "削除", admin_recipe_path(recipe.id), method: :delete %></td>
        <% end %>
       <!--<#% recipe.tags.each do |tag| %>-->
       <!--  <#%= tag.name %>-->

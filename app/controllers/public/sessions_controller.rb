@@ -13,10 +13,10 @@ class Public::SessionsController < Devise::SessionsController
        recipes_path 
       # (current_customers.id)
     end
-    def after_sign_out_path_for(resource)
-       flash[:notice] = "Signed out successfully."
-        root_path
-    end
+    # def after_sign_out_path_for(resource)
+    #   flash[:notice] = "Signed out successfully."
+    #     root_path
+    # end
   def guest_sign_in
     user = User.guest
     sign_in user

@@ -1,5 +1,6 @@
 class Admin::CommentController < ApplicationController
-  
+  before_action :authenticate_admin!
+
   def index
     # @comments = @recipe.comments
      @comments = Comment.all
@@ -14,7 +15,8 @@ class Admin::CommentController < ApplicationController
   end
 
   def destroy
-    @comment = Comment.find(params[:id])
+    @comment = Comment.find(params[:id]).destroy
+    redirect_to admin_comment_index_path
   end
 private
     def comment_params
